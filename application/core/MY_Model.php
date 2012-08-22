@@ -2,7 +2,7 @@
 
 class MY_Model extends CI_Model {
 
-	protected $_db;
+	protected $_db			= '';
 	protected $_tabla		= '';
 	protected $_archivos 	= array();
 	protected $_id 			= 'id';
