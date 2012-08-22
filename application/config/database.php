@@ -45,7 +45,7 @@
 | the active record class
 */
 
-$active_group = 'default';
+$active_group = 'phpfog';
 $active_record = TRUE;
 
 $db['default']['hostname'] = 'localhost';
@@ -63,6 +63,22 @@ $db['default']['dbcollat'] = 'utf8_general_ci';
 $db['default']['swap_pre'] = '';
 $db['default']['autoinit'] = TRUE;
 $db['default']['stricton'] = FALSE;
+
+$db['phpfog']['hostname'] = "mysql-shared-02.phpfog.com";
+$db['phpfog']['username'] = "slashcat-9-54575";
+$db['phpfog']['password'] = "GC42E41b14tX";
+$db['phpfog']['database'] = "opavia_phpfogapp_com";
+$db['phpfog']['dbdriver'] = "mysql";
+$db['phpfog']['dbprefix'] = "";
+$db['phpfog']['pconnect'] = TRUE;
+$db['phpfog']['db_debug'] = FALSE;
+$db['phpfog']['cache_on'] = FALSE;
+$db['phpfog']['cachedir'] = "";
+$db['phpfog']['char_set'] = "utf8";
+$db['phpfog']['dbcollat'] = "utf8_general_ci";
+$db['phpfog']['swap_pre'] = "";
+$db['phpfog']['autoinit'] = TRUE;
+$db['phpfog']['stricton'] = FALSE;
 
 
 /* End of file database.php */
