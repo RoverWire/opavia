@@ -1,5 +1,19 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
+/**
+ * CodeIgniter MY_Model Class
+ * 
+ * Base model with CRUD functions for CodeIgniter Framework.
+ * Tested on PHP > 5.3
+ * 
+ * @package 	CodeIgniter
+ * @subpackage 	Libraries
+ * @category 	Library
+ * @author 		Luis Felipe Pérez Puga
+ * @link 		http://twitter.com/roverwire
+ * @version 	0.9 
+ */
+
 class MY_Model extends CI_Model {
 
 	protected $_db			= '';
@@ -25,8 +39,8 @@ class MY_Model extends CI_Model {
 	}
 
 	/* --------------------------------------------------------------
-     * FUNCIONES DE USO INTERNO
-     * ------------------------------------------------------------ */
+	 * FUNCIONES DE USO INTERNO
+	 * ------------------------------------------------------------ */
 
 	protected function definir_base()
 	{
@@ -64,24 +78,26 @@ class MY_Model extends CI_Model {
 		foreach ($this->callback_parametros as $campo) {
 			$datos[$campo] = serialize($datos[$campo]);
 		}
+
+		return $datos;
 	}
 
 	public function unserialize($datos)
 	{
 		foreach ($this->callback_parametros as $campo) {
-            if (is_array($datos)) {
-                $datos[$campo] = unserialize($datos[$campo]);
-            } else {
-                $datos->$campo = unserialize($datos->$campo);
-            }
-        }
+			if (is_array($datos)) {
+				$datos[$campo] = unserialize($datos[$campo]);
+			} else {
+				$datos->$campo = unserialize($datos->$campo);
+			}
+		}
 
-        return $datos;
+		return $datos;
 	}
 
 	/* --------------------------------------------------------------
-     * FUNCIONES GENÉRICAS
-     * ------------------------------------------------------------ */
+	 * FUNCIONES GENÉRICAS
+	 * ------------------------------------------------------------ */
 
 	public function agregar($datos)
 	{
@@ -153,8 +169,8 @@ class MY_Model extends CI_Model {
 	}
 
 	/* --------------------------------------------------------------
-     * QUERY HELPERS ::EXPERIMENTAL::
-     * ------------------------------------------------------------ */
+	 * QUERY HELPERS ::EXPERIMENTAL::
+	 * ------------------------------------------------------------ */
 
 	public function get()
 	{
@@ -187,8 +203,8 @@ class MY_Model extends CI_Model {
 	}
 
 	/* --------------------------------------------------------------
-     * UTILERIAS
-     * ------------------------------------------------------------ */
+	 * UTILERIAS
+	 * ------------------------------------------------------------ */
 
 	public static function calcular_id()
 	{
