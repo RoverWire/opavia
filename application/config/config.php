@@ -14,7 +14,7 @@
 | path to your installation.
 |
 */
-$config['base_url']	= 'http://opavia.phpfogapp.com/';
+$config['base_url']	= '';
 
 /*
 |--------------------------------------------------------------------------

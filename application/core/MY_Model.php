@@ -4,216 +4,371 @@
  * CodeIgniter MY_Model Class
  * 
  * Base model with CRUD functions for CodeIgniter Framework.
- * Tested on PHP > 5.3
+ * Bassed on Jamie Rumbelow model base class. 
  * 
  * @package 	CodeIgniter
  * @subpackage 	Libraries
  * @category 	Library
- * @author 		Luis Felipe Pérez Puga
- * @link 		http://twitter.com/roverwire
- * @version 	0.9 
+ * @author 		Luis Felipe Pérez
+ * @version 	0.1 
  */
 
 class MY_Model extends CI_Model {
 
-	protected $_db			= '';
-	protected $_tabla		= '';
-	protected $_archivos 	= array();
-	protected $_id 			= 'id';
+	protected $_id;
+	protected $_table;
+	protected $total_results;
+	protected $file_fields = array();
+	protected $field_names = array();
 
-	protected $pre_agregar		= array();
-	protected $pos_agregar		= array();
-	protected $pre_actualizar 	= array();
-	protected $pos_actualizar	= array();
-	protected $pre_eliminar		= array();
-	protected $pos_eliminar		= array();
+	protected $pre_insert = array();
+	protected $pos_insert = array();
+	protected $pre_update = array();
+	protected $pos_update = array();
+	protected $pre_delete = array();
+	protected $pos_delete = array();
+	protected $pre_get	  = array();
+	protected $pos_get	  = array();
 
-	protected $callback_parametros	= array();
+	protected $callback_params = array();
 
 	public function __construct()
 	{
 		parent::__construct();
 		$this->load->helper('inflector');
-		$this->definir_base();
-		$this->definir_tabla();
+		$this->set_table();
 	}
 
 	/* --------------------------------------------------------------
-	 * FUNCIONES DE USO INTERNO
+	 * INTERNAL METHODS
 	 * ------------------------------------------------------------ */
-
-	protected function definir_base()
+	
+	/**
+	 * Sets the table to use with the model. If not provided with $this->_table
+	 * var, the function try to guess the name using the plural name of the
+	 * model.
+	 */
+	
+	protected function set_table()
 	{
-		if (!empty($this->_db)) {
-			$this->db = $this->load->database($this->_db, TRUE);
+		if (empty($this->_table) || $this->_table == NULL) {
+			$this->_table = plural(preg_replace('/(_m|_model)?$/', '', strtolower(get_class($this))));
 		}
 	}
 
-	protected function definir_tabla()
-	{
-		if (empty($this->_tabla) || $this->_tabla == NULL) {
-			$this->_tabla = plural(preg_replace('/(_m|_model)?$/', '', strtolower(get_class($this))));
-		}
-	}
-
-	protected function trigger($event, $datos = FALSE)
+	/**
+	 * Trigger a method before or after a CRUD function
+	 * 
+	 * @param  string 	$event event to trigger
+	 * @param  mixed 	$data  could be an array of data to process
+	 * @return mixed 	$data  array processed or FALSE if it is not provided
+	 */
+	
+	protected function trigger($event, $data = FALSE)
 	{
 		if (isset($this->$event) && is_array($this->$event)) {
 			foreach ($this->$event as $method) {
 				if (strpos($method, '(')) {
 					preg_match('/([a-zA-Z0-9\_\-]+)(\(([a-zA-Z0-9\_\-\., ]+)\))?/', $method, $matches);
 					$method = $matches[1];
-					$this->callback_parametros = explode(',', $matches[3]);
+					$this->callback_params = explode(',', $matches[3]);
 				}
 
-				$datos = call_user_func_array(array($this, $method), array($datos));
+				$data = call_user_func_array(array($this, $method), array($data));
 			}
 		}
 
-		return $datos;
+		return $data;
 	}
 
-	public function serialize($datos)
+	/**
+	 * Serialises data for you automatically, allowing you to pass
+	 * through objects and let it handle the serialisation in the background
+	 * 
+	 * @param  array $data data for process before or after an operation
+	 * @return array $data serialized data
+	 */
+	
+	public function serialize($data)
 	{
-		foreach ($this->callback_parametros as $campo) {
-			$datos[$campo] = serialize($datos[$campo]);
+		foreach ($this->callback_params as $field) {
+			$data[$field] = serialize($data[$field]);
 		}
 
-		return $datos;
+		return $data;
 	}
 
-	public function unserialize($datos)
+	/**
+	 * Unserialises data for you automatically, allowing you to pass
+	 * through objects and let it handle the unserialisation in the background
+	 * 
+	 * @param  array $data data for process
+	 * @return array $data unserialized data
+	 */
+	
+	public function unserialize($data)
 	{
-		foreach ($this->callback_parametros as $campo) {
-			if (is_array($datos)) {
-				$datos[$campo] = unserialize($datos[$campo]);
+		foreach ($this->callback_params as $field) {
+			if (is_array($data)) {
+				$data[$field] = unserialize($data[$field]);
 			} else {
-				$datos->$campo = unserialize($datos->$campo);
+				$data->$field = unserialize($data->$field);
 			}
 		}
 
-		return $datos;
+		return $data;
 	}
 
 	/* --------------------------------------------------------------
-	 * FUNCIONES GENÉRICAS
+	 * CRUD METHODS
 	 * ------------------------------------------------------------ */
 
-	public function agregar($datos)
+	/**
+	 * Inserts a new row on the table.
+	 * 
+	 * @param  array $data info to insert
+	 * @return mixed       returns the inserted id on sucess or FALSE
+	 */
+	
+	public function insert($data)
 	{
-		if (is_array($datos)) {
-			$datos = $this->trigger('pre_agregar', $datos);
-			$this->db->insert($this->_tabla, $datos);
+		if (is_array($data) && count($data) > 0) {
+			$data = $this->trigger('pre_insert', $data);
+			$this->db->insert($this->_table, $data);
 			$id = $this->db->insert_id();
-			$this->trigger('pos_agregar', $id);
+			$this->trigger('pos_insert', $id);
 			return $id;
 		} else {
 			return FALSE;
 		}
 	}
 
-	public function detalles($id)
+	/**
+	 * Update table data. It can be chainable with 'where' query helper.
+	 * 
+	 * @param  array $data 	info to be updated
+	 * @param  int 	 $id 	primary key of the row to be updated (optional)
+	 * @return mixed 		returns an integer on sucess or FALSE
+	 */
+	
+	public function update($data, $id = '')
 	{
-		if (!empty($id)) {
-			return $this->db->where($this->_id, $id)->get($this->_tabla);
-		} else {
-			return FALSE;
-		}
-	}
+		if (is_array($data) && count($data) > 0) {
+			$data = $this->trigger('pre_update', $data);
+			
+			if (!empty($id)) {
+				$this->db->where($this->_id, $id);
+			}
 
-	public function actualizar($id, $datos)
-	{
-		if (is_array($datos) && !empty($id)) {
-			$datos = $this->trigger('pre_actualizar', $datos);
-			$this->db->where($this->_id, $id)->update($this->_tabla, $datos);
+			$this->db->update($this->_table, $data);
 			$rows = $this->db->affected_rows();
-			$this->trigger('pos_actualizar', array($datos, $rows));
+			$this->trigger('pos_update', array($data, $rows));
+			return $rows;
 		} else {
 			return FALSE;
 		}
 	}
 
-	public function eliminar($id)
+	/**
+	 * Delete rows from table using primary key as reference
+	 * 
+	 * @param  mixed $id 	a single value or array of primary keys (optional)
+	 * @return mixed      	returns a integer number of affected rows.
+	 */
+	
+	public function delete($id = '')
 	{
-		if (empty($id) || (is_array($id) && count($id) < 1)) {
-			return FALSE;
+		$id = $this->trigger('pre_delete', $id);
+
+		if (!empty($id)) {			
+			if (!is_array($id)) {
+				$id = array($id);
+			}
+
+			$this->db->where_in($this->_id, $id);
 		}
 
-		if (!is_array($id)) {
-			$id = array($id);
-		}
+		$this->db->delete($this->_table);
+		$rows = $this->db->affected_rows();
+		$this->trigger('pos_delete', array($id, $rows));
 
-		if (count($this->_archivos) > 0) {
-			$campos = implode(', ', $this->_archivos);
-			$query = $this->db->select($campos)->where_in($this->_id, $id)->get($this->_tabla);
+		return $rows;
+	}
 
-			foreach ($query->result() as $row) {
-				foreach ($this->_archivos as $archivo) {
-					if (isset($row->$archivo) && !empty($row->$archivo)) {
-						if (file_exists('.'.$row->$archivo)) {
-							unlink('.'.$row->$archivo);
-						}
-					}
-				}
+	/**
+	 * Get result set from table. If $id value are provided, it find only
+	 * rows with specified primary key values. This function also can be
+	 * chainable with query hepelrs like 'where', 'where in', etc.
+	 * 
+	 * @param  mixed  $id 		can be a single value or array (optional)
+	 * @return object $result   data result from table
+	 */
+	
+	public function get($id = '')
+	{
+		$id = $this->trigger('pre_get', $id);
+		if (!empty($id)) {
+			if (is_array($id)) {
+				$this->db->where_in($this->_id, $id);
+			} else {
+				$this->db->where($this->_id, $id);
 			}
 		}
 
-		$this->db->where_in($this->_id, $id)->delete($this->_tabla);
+		$result = $this->db->get($this->_table);
+		$result = $this->trigger('pos_get', $result);
 
-		return $this->db->affected_rows();
-	}
-
-	public function listar()
-	{
-		return $this->db->get($this->_tabla);
+		return $result;
 	}
 
 	/* --------------------------------------------------------------
-	 * QUERY HELPERS ::EXPERIMENTAL::
+	 * QUERY HELPERS || ::EXPERIMENTAL::
 	 * ------------------------------------------------------------ */
 
-	public function get()
-	{
-		return $this->db->get($this->_tabla);
-	}
-
-	public function last_query()
-	{
-		return $this->db->last_query();
-	}
-
-	public function count()
-	{
-		return $this->db->count_all_results($this->_tabla);
-	}
-
-	public function count_all()
-	{
-		return $this->db->count_all($this->_tabla);
-	}
+	/**
+	 * Magic Method __call allows to execute DB methods like a wrapper. Also it allows
+	 * chaining method for some active record query helpers.
+	 * 
+	 * @param  string $method 	method name
+	 * @param  array  $params 	parameters to pass at the method
+	 * @return mixed  			returns $this object or FALSE if method doesn't exists
+	 */
 	
-	public function __call($metodo, $parametros)
+	public function __call($method, $params)
 	{
-		if (method_exists($this->db, $metodo)) {
-			call_user_func_array(array($this->db, $metodo), $parametros);
-			return $this;
+		if (method_exists($this->db, $method)) {
+			if (in_array($method, array('count_all', 'empty_table', 'truncate'))) {
+				return call_user_func_array(array($this->db, $method), array($this->_table));
+			} else if (in_array($method, array('query', 'simple_query', 'insert_id', 'plattform', 'version', 'last_query'))) {
+				return call_user_func_array(array($this->db, $method), $params);
+			} else {
+				call_user_func_array(array($this->db, $method), $params);
+				return $this;
+			}
 		} else {
 			return FALSE;
 		}		
 	}
 
-	/* --------------------------------------------------------------
-	 * UTILERIAS
-	 * ------------------------------------------------------------ */
-
-	public static function calcular_id()
+	/**
+	 * Count all rows of a result that a query produces
+	 * 
+	 * @return int rows
+	 */
+	
+	public function count_all_results()
 	{
-		return date("Ymds"). sprintf("%02d", rand(0,99));
+		$this->total_results = $this->db->count_all_results($this->_table);
+		return $this->total_results;
 	}
 
-	public function tabla()
+	/* --------------------------------------------------------------
+	 * UTILITIES
+	 * ------------------------------------------------------------ */
+
+	/**
+	 * Static method that generate a stamp string. Is useful to rename 
+	 * files uploaded and avoid overwriting.
+	 * 
+	 * @return string stamp
+	 */
+	
+	public static function calculate_id()
 	{
-		return $this->_tabla;
+		return date("Ymds") . sprintf("%02d", rand(0,99));
+	}
+
+	/**
+	 * Get the table name from the model
+	 * 
+	 * @return string table name
+	 */
+	
+	public function table()
+	{
+		return $this->_table;
+	}
+
+	/**
+	 * Returns an array containing the name of table columns
+	 * 
+	 * @return array
+	 */
+	
+	public function table_columns()
+	{
+		if (count($this->field_names) > 0) {
+			return $this->field_names;
+		} else {
+			$query = $this->db->query("SHOW COLUMNS FROM ".$this->_table);
+			foreach ($query->result() as $row) {
+				$this->field_names[] = $row->Field;
+			}
+			return $this->field_names;
+		}
+	}
+
+	/**
+	 * Search a row with a field that contains a specified value. If
+	 * a row is finded, then returns TRUE. 
+	 * 
+	 * @param  string $field column name to search
+	 * @param  string $value value to search in the column
+	 * @return bool
+	 */
+	
+	public function exists($field, $value)
+	{
+		$num = $this->db->where($field, $value)->count_all_results($this->_table);
+		return ($num > 0) ? TRUE : FALSE;
+	}
+
+	/**
+	 * Produces a array that can be used with form helper. This also can be chained
+	 * with other query helpers like: 
+	 * $arr = $this->model->where('field', $search)->order_by($label, 'ASC')->dropdown($value, $label);
+	 * 
+	 * @param  string $value field that will be used as value
+	 * @param  string $label field that will be used as label. If not provided, value field is used.
+	 * @return array         option array
+	 */
+	
+	public function dropdown($value, $label = '')
+	{
+		if (!empty($value)) {
+			$query = $this->db->get($this->_table);
+			$opt   = array(); 
+			foreach ($query->result() as $row) {
+				$opt[$row->$value] = (!empty($label)) ? $row->$label : $row->$value;
+			}
+
+			return $opt;
+		} else {
+			return array();
+		}
+	}
+
+	/**
+	 * Produces option tags for dropdowns. It uses dropdown function and is chainable
+	 * with query helpers.
+	 * 
+	 * @param  string $value    field for values
+	 * @param  string $label    field for labels, if not provided, value field is used (optional)
+	 * @param  string $selected preselected value (optional)
+	 * @return string           string option tags
+	 */
+	
+	public function dropdown_opt($value, $label = '', $selected = '')
+	{
+		$opt = $this->dropdown($value, $label);
+		$str = '';
+
+		foreach ($opt as $key => $val) {
+			$attr = ($value == $selected) ? ' selected="selected"' : '';
+			$str .= '<option value="'. $key . '"' . $attr . '>' . $val . "</option>\n";
+		}
+
+		return $str;
 	}
 
 }

@@ -57,9 +57,9 @@ $template['active_template'] = 'default';
 */
 
 $template['default']['template'] = 'template';
-$template['default']['regions'] = array();
-$template['default']['parser'] = 'parser';
-$template['default']['parser_method'] = 'parse';
+$template['default']['regions']  = array('title', 'content');
+$template['default']['parser']   = 'parser';
+$template['default']['parser_method']  = 'parse';
 $template['default']['parse_template'] = FALSE;
 $template['default']['partials'] = array();
 /* End of file template.php */

@@ -45,7 +45,7 @@
 | the active record class
 */
 
-$active_group = 'phpfog';
+$active_group = (strpos($_SERVER["HTTP_HOST"], 'phpfog') === FALSE) ? 'default' : 'phpfog';
 $active_record = TRUE;
 
 $db['default']['hostname'] = 'localhost';
