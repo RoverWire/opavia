@@ -6,3 +6,9 @@ body {
 .sidebar-nav {
 	padding: 9px 0;
 }
+
+.login-box {
+	margin:  0 auto;
+	display: block;
+	max-width: 400px;
+}

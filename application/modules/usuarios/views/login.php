@@ -1,7 +1,7 @@
 	
 	<div class="container-fluid">
 		<div class="row-fluid">
-			<div class="span4 offset4">
+			<div class="login-box">
 				<form action="" method="post" class="form-horizontal">
 					<legend>Acceso Sistema</legend>
 					<div class="control-group">

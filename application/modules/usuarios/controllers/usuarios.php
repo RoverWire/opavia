@@ -15,6 +15,8 @@ class Usuarios extends MY_Controller {
 
 	public function agregar()
 	{
+		$this->template->write('title', 'Agregar Usuario');
+		$this->template->write_view('content', 'form');
 		$this->template->render();
 	}
 
