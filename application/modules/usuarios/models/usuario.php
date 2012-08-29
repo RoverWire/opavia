@@ -4,6 +4,9 @@ class Usuario extends MY_Model {
 
 	private $salt_length = 10;
 
+	protected $pre_insert = array('procesar_password');
+	protected $pre_update = array('procesar_password');
+
 	public function __construct()
 	{
 		parent::__construct();		
@@ -49,6 +52,15 @@ class Usuario extends MY_Model {
 		}
 
 		return FALSE;
+	}
+
+	public function procesar_password($datos)
+	{
+		if(isset($datos['pass'])){
+			$datos['pass'] = $this->hash_password($datos['pass']);
+		}
+
+		return $datos;
 	}
 
 }
