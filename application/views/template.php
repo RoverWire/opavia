@@ -31,7 +31,7 @@
 <body>
 	<header class="navbar navbar-inverse navbar-fixed-top">
 		<div class="navbar-inner">
-			<div class="container-fluid">
+			<div class="container">
 				<a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
 					<span class="icon-bar"></span>
 					<span class="icon-bar"></span>
@@ -52,8 +52,8 @@
 		</div>
 	</header>
 
-	<div class="container-fluid">
-		<div class="row-fluid">
+	<div class="container">
+		<div class="row">
 			<aside class="span3">
 				<div class="sidebar-nav">
 					<ul class="nav nav-tabs nav-stacked">
