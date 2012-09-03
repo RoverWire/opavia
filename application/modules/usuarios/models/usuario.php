@@ -2,10 +2,11 @@
 
 class Usuario extends MY_Model {
 
-	private $salt_length = 10;
-
-	protected $pre_insert = array('procesar_password');
-	protected $pre_update = array('procesar_password');
+	private   $salt_length = 10;
+	protected $_id         = 'id';
+	protected $pre_insert  = array('procesar_password');
+	protected $pre_update  = array('procesar_password');
+	protected $field_names = array('nombre', 'apellidos', 'usuario', 'pass', 'activo', 'tipo');
 
 	public function __construct()
 	{

@@ -49,9 +49,9 @@ $active_group = (strpos($_SERVER["HTTP_HOST"], 'phpfog') === FALSE) ? 'default' 
 $active_record = TRUE;
 
 $db['default']['hostname'] = 'localhost';
-$db['default']['username'] = '';
+$db['default']['username'] = 'root';
 $db['default']['password'] = '';
-$db['default']['database'] = '';
+$db['default']['database'] = 'opavia';
 $db['default']['dbdriver'] = 'mysql';
 $db['default']['dbprefix'] = '';
 $db['default']['pconnect'] = TRUE;

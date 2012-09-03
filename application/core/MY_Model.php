@@ -290,7 +290,7 @@ class MY_Model extends CI_Model {
 	}
 
 	/**
-	 * Returns an array containing the name of table columns
+	 * Returns an array containing the column names of the table
 	 * 
 	 * @return array
 	 */
@@ -309,16 +309,43 @@ class MY_Model extends CI_Model {
 	}
 
 	/**
+	 * Generates a initial set array of values to be passed a form view. If a
+	 * $data array is provided (could be post values), this data will be merged
+	 * 
+	 * @param  array  $data array data set
+	 * @return array        data initialized
+	 */
+	
+	public function prepare_data($data = '')
+	{
+		$return = array();
+
+		foreach ($this->field_names as $field) {
+			$return[$field] = '';
+		}
+
+		if(is_array($data)){
+			$return = array_merge($return, $data);
+		}
+
+		return $return;
+	}
+
+	/**
 	 * Search a row with a field that contains a specified value. If
 	 * a row is finded, then returns TRUE. 
-	 * 
-	 * @param  string $field column name to search
+	 *  
 	 * @param  string $value value to search in the column
+	 * @param  string $field column name to search
 	 * @return bool
 	 */
 	
-	public function exists($field, $value)
+	public function exists($value, $field = '')
 	{
+		if(empty($field)){
+			$field = $this->_id;
+		}
+
 		$num = $this->db->where($field, $value)->count_all_results($this->_table);
 		return ($num > 0) ? TRUE : FALSE;
 	}
