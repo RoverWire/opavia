@@ -4,7 +4,6 @@
 <div class="widget widget-table">
 	<form action="" method="post">
 		<div class="widget-header">
-			<h3>Listado de Usuarios del Sistema</h3>
 			<div class="pull-right">
 				<a href="/usuarios/agregar" class="btn btn-small btn-success">Agregar Usuario</a>
 				&nbsp;
@@ -15,7 +14,7 @@
 				<thead>
 					<tr>
 						<th width="2%">#</th>
-						<th>Nombre</th>
+						<th class="hidden-phone">Nombre</th>
 						<th>Usuario</th>
 						<th width="2%">Activo</th>
 						<th width="4%">Opciones</th>
@@ -33,7 +32,7 @@
 				<?php foreach ($query->result() as $row): ?>
 					<tr>
 						<td><input type="checkbox" name="del[]" value="<?php echo $row->id; ?>"></td>
-						<td><?php echo $row->nombre . ' ' . $row->apellidos; ?></td>
+						<td class="hidden-phone"><?php echo $row->nombre . ' ' . $row->apellidos; ?></td>
 						<td><?php echo $row->usuario; ?></td>
 						<td class="center"><?php echo ($row->activo == 0) ? 'No' : 'Si'; ?></td>
 						<td class="center">
