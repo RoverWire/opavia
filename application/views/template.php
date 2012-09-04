@@ -19,9 +19,11 @@
 	<link rel="shortcut icon" href="img/favicon.ico">
 	-->
 
-	<link href="/assets/css/bootstrap.min.css" rel="stylesheet">
+	<link href="/assets/font/opensans.css" rel="stylesheet">	
+	<link href="/assets/css/bootstrap.no.icons.min.css" rel="stylesheet">
+	<link href="/assets/css/font-awesome.css" rel="stylesheet">	
 	<link href="/assets/css/opavia.css" rel="stylesheet">
-	<link href="/assets/css/bootstrap-responsive.min.css" rel="stylesheet">
+	<link href="/assets/css/bootstrap-responsive.min.css" rel="stylesheet">	
 
 	<?php echo $_styles; ?>
 
@@ -39,13 +41,16 @@
 				</a>
 				<a class="brand" href="#">Óptica Pavía</a>
 				<div class="nav-collapse collapse">
-					<p class="navbar-text pull-right">
-						Logged in as <a href="#" class="navbar-link">Username</a>
-					</p>
-					<ul class="nav">
-						<li class="active"><a href="#">Inicio</a></li>
-						<li><a href="#about">Usuarios</a></li>
-						<li><a href="#contact">Almacén</a></li>
+					<ul class="nav pull-right">
+						<li class="dropdown">
+							<a href="#" data-toggle="dropdown" class="dropdown-toggle">Administrador <b class="caret"></b></a>
+							<ul class="dropdown-menu">
+								<li><a href="#"><i class="icon-user"></i> Mi Cuenta</a></li>
+								<li><a href="#"><i class="icon-lock"></i> Contraseña</a></li>
+								<li class="divider"></li>
+								<li><a href="#"><i class="icon-off"></i> Cerrar Sesión</a></li>
+							</ul>
+						</li>
 					</ul>
 				</div>
 			</div>
@@ -56,10 +61,11 @@
 		<div class="row">
 			<aside class="span3">
 				<div class="sidebar-nav">
-					<ul class="nav nav-tabs nav-stacked">
-						<li><a href="#">Opcion 1</a></li>
-						<li><a href="#">Opcion 2</a></li>
-						<li><a href="#">Opcion 3</a></li>
+					<ul id="main-nav" class="nav nav-tabs nav-stacked">
+						<li><a href="#"><i class="icon-home"></i> Inicio</a></li>
+						<li><a href="/usuarios"><i class="icon-user"></i> Usuarios</a></li>
+						<li><a href="#"><i class="icon-truck"></i> Almacén</a></li>
+						<li><a href="#"><i class="icon-money"></i> Ventas</a></li>
 					</ul>
 				</div>
 			</aside>
@@ -76,7 +82,7 @@
 	<script src="/assets/js/jquery.js"></script>
 
 	<!-- this is where we put our custom functions -->
-	<script src="/assets/js/bootstrap.min.js"></script>
+	<script src="/assets/js/bootstrap.js"></script>
 
 	<?php echo $_scripts; ?>
 

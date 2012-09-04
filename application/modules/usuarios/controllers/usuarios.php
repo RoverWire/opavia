@@ -12,6 +12,7 @@ class Usuarios extends MY_Controller {
 	{
 		$datos = array();
 		$datos['query'] = $this->usuario->get();
+		$this->template->write('title', 'Usuarios');
 		$this->template->write_view('content', 'table', $datos);
 		$this->template->render();
 	}
