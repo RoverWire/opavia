@@ -13,6 +13,10 @@ label {
 	font: 13px/1.7em 'OpenSansSemiBold', arial, sans-serif;
 }
 
+.btn {
+	font-family: 'OpenSansSemiBold';
+}
+
 .sidebar-nav {
 	padding: 9px 0;
 }
@@ -206,40 +210,37 @@ hr {
 	-webkit-background-clip: padding-box;
 }	
 	
-	.widget-header h3 {
-		
-		position: relative;
-		top: 2px;
-		left: 10px;
-		
-		display: inline-block;
-		margin-right: 3em;
-		
-		font-size: 14px;
-		font-weight: 800;
-		color: #555;
-		line-height: 18px;
-		
-		text-shadow: 1px 1px 2px rgba(255,255,255,.5);
-	}
+.widget-header h3 {	
+	position: relative;
+	top: 2px;
+	left: 10px;	
+	display: inline-block;
+	margin-right: 3em;	
+	font-size: 14px;
+	font-weight: 800;
+	color: #555;
+	line-height: 18px;	
+	text-shadow: 1px 1px 2px rgba(255,255,255,.5);
+}
 	
-		.widget-header [class^="icon-"], .widget-header [class*=" icon-"] 
-		{
-			
-			display: inline-block;
-			margin-left: 13px;
-			margin-right: -2px;
-			
-			font-size: 16px;
-			color: #555;
-			vertical-align: middle;
-			
-			
-			
-		}
+.widget-header [class^="icon-"], .widget-header [class*=" icon-"] {
+	display: inline-block;
+	margin-left: 13px;
+	margin-right: -2px;	
+	font-size: 16px;
+	color: #555;
+	vertical-align: middle;			
+}
 
+.widget-header .btn [class^="icon-"], .widget-header .btn [class*=" icon-"] {
+	margin-left: 0px;
+	margin-right: 5px;
+}
 
-
+.widget-header .btn-success [class^="icon-"], .widget-header .btn-success [class*=" icon-"],
+.widget-header .btn-danger [class^="icon-"], .widget-header .btn-danger [class*=" icon-"] {
+	color: #fff;
+}
 
 .widget-content {
 	padding: 20px 15px 15px;
