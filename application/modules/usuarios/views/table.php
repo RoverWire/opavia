@@ -2,7 +2,7 @@
 <h1 class="page-title"><i class="icon-user"></i> Consulta de Usuarios</h1>
 
 <div class="widget widget-table">
-	<form action="" method="post">
+	<form action="" id="consulta" method="post">
 		<div class="widget-header">			
 			<div class="pull-right">
 				<a href="/usuarios/agregar" class="btn btn-small btn-success"><i class="icon-plus"></i> Agregar</a> &nbsp;
@@ -23,7 +23,7 @@
 				<tfoot>
 					<tr>
 						<td colspan="6">
-							<button type="button" class="btn btn-danger"><i class="icon-remove"></i> Eliminar</button>
+							<button type="button" class="btn btn-danger" id="btn-delete"><i class="icon-remove"></i> Eliminar</button>
 						</td>
 					</tr>
 				</tfoot>
