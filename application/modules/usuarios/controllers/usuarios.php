@@ -10,8 +10,15 @@ class Usuarios extends MY_Controller {
 
 	public function index()
 	{
+		if ($this->input->post('del')) {
+			$this->usuario->delete($this->input->post('del'));
+			$this->session->set_flashdata('msg_success', 'Los usuarios han sido eliminados de manera permanente.');
+			redirect('usuarios');
+		}
+
 		$datos = array();
 		$datos['query'] = $this->usuario->get();
+		$datos['msg_success'] = $this->session->flashdata('msg_success');
 		$this->template->write('title', 'Usuarios');
 		$this->template->write_view('content', 'table', $datos);
 		$this->template->asset_js('consulta.js');
@@ -20,10 +27,11 @@ class Usuarios extends MY_Controller {
 
 	public function agregar()
 	{
+		$this->load->helper('formulario');
 		$this->form_validation->set_rules('datos[nombre]', 'nombre', 'required|max_length[150]|trim');
 		$this->form_validation->set_rules('datos[apellidos]', 'apellidos', 'required|max_length[150]|trim');
 		$this->form_validation->set_rules('datos[usuario]', 'usuario', 'required|max_length[50]|is_unique[usuarios.usuario]|trim');
-		$this->form_validation->set_rules('datos[pass]', 'contraseña', 'required|matches[repetir]|trim');
+		$this->form_validation->set_rules('datos[pass]', 'contraseña', 'required|min_length[6]|matches[repetir]|trim');
 		$this->form_validation->set_rules('repetir', 'repetir contraseña', 'required|trim');
 		$this->form_validation->set_rules('datos[tipo]', 'tipo de usuario', 'required|integer|trim');
 		$this->form_validation->set_rules('datos[activo]', 'estado', 'required|integer|trim');
@@ -32,6 +40,7 @@ class Usuarios extends MY_Controller {
 
 		if ($this->form_validation->run()) {
 			if ($this->usuario->insert( $this->input->post('datos') )) {
+				$this->session->set_flashdata('msg_success', 'El usuario ha sido agregado.');
 				redirect('usuarios');
 			}
 		}
@@ -46,27 +55,42 @@ class Usuarios extends MY_Controller {
 
 	public function editar($id = '')
 	{
+		if (! $this->usuario->exists($id)) {
+			redirect('usuarios');
+		}
+
+		$this->load->helper('formulario');
+		$edit = $this->usuario->get($id)->row_array();
+
 		$this->form_validation->set_rules('datos[nombre]', 'nombre', 'required|max_length[150]|trim');
 		$this->form_validation->set_rules('datos[apellidos]', 'apellidos', 'required|max_length[150]|trim');
-		$this->form_validation->set_rules('datos[usuario]', 'usuario', 'required|max_length[50]|is_unique[usuarios.usuario]|trim');
 		$this->form_validation->set_rules('datos[tipo]', 'tipo de usuario', 'required|integer|trim');
 		$this->form_validation->set_rules('datos[activo]', 'estado', 'required|integer|trim');
 
-		if ($this->input->post('datos[pass]') || $this->input->post('repetir')) {
-			$this->form_validation->set_rules('datos[pass]', 'contraseña', 'required|matches[repetir]|trim');
+		if (isset($_POST['datos']['usuario']) && $edit['usuario'] != trim($_POST['datos']['usuario'])) {
+			$this->form_validation->set_rules('datos[usuario]', 'usuario', 'required|max_length[50]|is_unique[usuarios.usuario]|trim');
+		}
+
+		if ((isset($_POST['datos']['pass']) && !empty($_POST['datos']['pass'])) || $this->input->post('repetir')) {
+			$this->form_validation->set_rules('datos[pass]', 'contraseña', 'required|min_length[6]|matches[repetir]|trim');
 			$this->form_validation->set_rules('repetir', 'repetir contraseña', 'required|trim');
 		}
 
 		$this->form_validation->set_error_delimiters('<span class="help-inline">', '</span>');
 
 		if ($this->form_validation->run()) {
-			
+			if ($this->usuario->update($this->input->post('datos'), $id) !== FALSE) {
+				$this->session->set_flashdata('msg_success', 'Los datos del usuario han sido actualizados.');
+				redirect('usuarios');
+			} else {
+				
+			}
 		}
 
 		if ($this->input->post('datos')) {
 			$datos = $this->input->post('datos');
 		} else {
-			$datos = $this->usuario->get($id)->row_array();
+			$datos = $edit;
 		}
 
 		$datos = $this->usuario->prepare_data($datos);
@@ -79,6 +103,11 @@ class Usuarios extends MY_Controller {
 
 	public function eliminar($id = '')
 	{
+		if ($this->usuario->exists($id)) {
+			$this->usuario->delete($id);
+			$this->session->set_flashdata('msg_success', 'El usuario ha sido eliminado de forma permanente.');
+		}
+
 		redirect('usuarios');
 	}
 

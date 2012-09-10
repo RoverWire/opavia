@@ -4,6 +4,14 @@
 <div class="widget">
 	<div class="widget-content">
 		<form action="" method="post" class="form-horizontal">
+		<?php if (validation_errors() != ''): ?>
+			<div class="alert alert-error">
+				<button type="button" class="close" data-dismiss="alert">x</button>
+				<h4>Error</h4>
+				La información está incompleta o errónea.
+			</div>	
+		<?php endif ?>
+
 			<?php $error = form_error('datos[nombre]'); ?>
 			<div class="control-group<?php echo ($error != '') ? ' error' : ''; ?>">
 				<label for="nombre" class="control-label">Nombre</label>
@@ -54,8 +62,8 @@
 				<label for="tipo" class="control-label">Tipo de Usuario</label>
 				<div class="controls">
 					<select name="datos[tipo]" id="tipo">
-						<option value="0" <?php echo set_select('tipo', '0'); ?>>Administrador</option>
-						<option value="1" <?php echo set_select('tipo', '1'); ?>>Vendedor</option>
+						<option value="0" <?php echo validar_seleccion($tipo, '0'); ?>>Administrador</option>
+						<option value="1" <?php echo validar_seleccion($tipo, '1'); ?>>Vendedor</option>
 					</select>
 					<?php echo $error; ?>
 				</div>
@@ -66,8 +74,8 @@
 				<label for="activo" class="control-label">Estado</label>
 				<div class="controls">
 					<select name="datos[activo]" id="activo">
-						<option value="1" <?php echo set_select('activo', '1'); ?>>Cuenta Activada</option>
-						<option value="0" <?php echo set_select('activo', '0'); ?>>Cuenta Suspendida</option>
+						<option value="1" <?php echo validar_seleccion($activo, '1'); ?>>Cuenta Activada</option>
+						<option value="0" <?php echo validar_seleccion($activo, '0'); ?>>Cuenta Suspendida</option>
 					</select>
 					<?php echo $error; ?>
 				</div>

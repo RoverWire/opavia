@@ -1,6 +1,13 @@
 
 <h1 class="page-title"><i class="icon-user"></i> Consulta de Usuarios</h1>
 
+<?php if (!empty($msg_success)): ?>
+	<div class="alert alert-success">
+		<button type="button" class="close" data-dismiss="alert">x</button>
+		<?php echo $msg_success; ?>
+	</div>
+<?php endif ?>
+
 <div class="widget widget-table">
 	<form action="" id="consulta" method="post">
 		<div class="widget-header">			
@@ -39,7 +46,7 @@
 						<td class="center">
 							<div class="btn-group">
 								<a href="/usuarios/editar/<?php echo $row->id; ?>" class="btn btn-small" title="editar"><i class="icon-pencil"></i></a>
-								<a href="#" class="btn btn-small btn-danger" title="eliminar"><i class="icon-remove"></i></a>
+								<a href="/usuarios/eliminar/<?php echo $row->id; ?>" class="btn btn-small btn-danger" title="eliminar"><i class="icon-remove"></i></a>
 							</div>										 
 						</td>	
 					</tr>

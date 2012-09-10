@@ -61,6 +61,10 @@ class Usuario extends MY_Model {
 			$datos['pass'] = $this->hash_password($datos['pass']);
 		}
 
+		if (empty($datos['pass'])) {
+			unset($datos['pass']);
+		}
+
 		return $datos;
 	}
 

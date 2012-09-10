@@ -27,6 +27,10 @@ label {
 	max-width: 280px;
 }
 
+.close {
+	font-size: 15px;
+}
+
 p {	
 	font: 13px/1.7em 'OpenSansRegular', arial, sans-serif;
 }
