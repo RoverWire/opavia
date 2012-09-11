@@ -19,7 +19,7 @@
 							</div>
 
 							<div class="center">
-								<button type="button" class="btn btn-large btn-block">Entrar</button>
+								<button type="submit" class="btn btn-large btn-block">Entrar</button>
 							</div>				
 						</form>
 					</div>
