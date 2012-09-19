@@ -10,14 +10,18 @@ class Acceso extends CI_Controller {
 	public function index()
 	{
 		$this->load->model('usuario');
+		$this->load->model('direccion_ip');
 		$this->form_validation->set_rules('usuario', 'usuario', 'required|trim');
 		$this->form_validation->set_rules('pass', 'contraseña', 'required|trim');
 
 		if ($this->form_validation->run()) {
-			if ($this->usuario->auth($this->input->post('usuario'), $this->input->post('pass'))) {
-				
+			if ($this->usuario->auth($this->input->post('usuario', TRUE), $this->input->post('pass', TRUE))) {
+				$data = $this->usuario->por_usuario($this->input->post('usuario', TRUE));
+				$user = $data->row_array();
+				$this->session->set_userdata($user);
+				redirect('');
 			} else {
-
+				$intentos = $this->direccion_ip->intento($this->input->ip_address());
 			}
 		}
 

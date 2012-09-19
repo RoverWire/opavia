@@ -68,6 +68,11 @@ class Usuario extends MY_Model {
 		return $datos;
 	}
 
+	public function por_usuario($usuario)
+	{
+		return $this->db->where('usuario', $usuario)->get($this->_table, 1);
+	}
+
 }
 
 /* End of file usuario.php */
