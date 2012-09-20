@@ -2,7 +2,7 @@
 
 class MY_Controller extends CI_Controller {
 
-	private   $publicas = array('/', 'index.php/', 'usuarios/login', 'usuarios/logout');
+	private   $publicas = array('usuarios/login', 'usuarios/logout');
 	protected $permitidos = array(0);
 
 	public function __construct()
