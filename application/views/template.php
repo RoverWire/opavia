@@ -43,12 +43,12 @@
 				<div class="nav-collapse collapse">
 					<ul class="nav pull-right">
 						<li class="dropdown">
-							<a href="#" data-toggle="dropdown" class="dropdown-toggle">Administrador <b class="caret"></b></a>
+							<a href="#" data-toggle="dropdown" class="dropdown-toggle"><?php echo $username; ?> <b class="caret"></b></a>
 							<ul class="dropdown-menu">
-								<li><a href="#"><i class="icon-user"></i> Mi Cuenta</a></li>
-								<li><a href="#"><i class="icon-lock"></i> Contraseña</a></li>
+								<li><a href="/usuarios/perfil"><i class="icon-user"></i> Mi Cuenta</a></li>
+								<li><a href="/usuarios/perfil/password"><i class="icon-lock"></i> Contraseña</a></li>
 								<li class="divider"></li>
-								<li><a href="#"><i class="icon-off"></i> Cerrar Sesión</a></li>
+								<li><a href="/usuarios/logout"><i class="icon-off"></i> Cerrar Sesión</a></li>
 							</ul>
 						</li>
 					</ul>

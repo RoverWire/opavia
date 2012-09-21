@@ -7,6 +7,7 @@
 						<h3>Inicio de Sesión</h3>
 					</div>
 					<div class="widget-content">
+						<?php echo validation_errors(); ?>
 						<form action="" method="post" class="form-horizontal">
 							<div class="control-group input-prepend">
 								<span class="add-on"><i class="icon-user"></i></span>						

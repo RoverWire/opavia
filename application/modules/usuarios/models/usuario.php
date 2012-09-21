@@ -46,7 +46,7 @@ class Usuario extends MY_Model {
 				$datos = $query->row();
 				$guardado = $this->to_hash($pass, $datos->pass);
 
-				if ($pass == $guardado) {
+				if ($datos->pass == $guardado) {
 					return TRUE;
 				}
 			}

@@ -81,7 +81,7 @@
 				</div>
 			</div>
 
-			<div class="control-group<?php echo ($error != '') ? ' error' : ''; ?>">
+			<div class="control-group">
 				<div class="controls">
 					<button type="submit" class="btn">Guardar</button>
 					<a href="/usuarios" class="btn btn-inverse">Regresar</a>

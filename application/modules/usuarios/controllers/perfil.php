@@ -2,6 +2,8 @@
 
 class Perfil extends MY_Controller {
 
+	protected $permitidos = array(0,1);
+	
 	public function __construct()
 	{
 		parent::__construct();
@@ -22,6 +24,7 @@ class Perfil extends MY_Controller {
 	public function password()
 	{
 		$this->template->write('title', 'Cambiar Contraseña');
+		$this->template->write_view('content', 'password');
 		$this->template->render();
 	}
 

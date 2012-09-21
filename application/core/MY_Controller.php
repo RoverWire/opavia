@@ -16,10 +16,12 @@ class MY_Controller extends CI_Controller {
 		{
 			redirect('usuarios/login');
 		}
-		else if ( in_array($this->session->userdata('tipo'), $this->permitidos) AND $this->session->userdata('id') ) 
+		else if ( ! in_array($this->session->userdata('tipo'), $this->permitidos) AND $this->session->userdata('id') ) 
 		{
 			redirect('usuarios/login');
 		}
+
+		$this->template->write('username', $this->session->userdata('nombre').' '.$this->session->userdata('apellidos'));
 	}
 
 }
