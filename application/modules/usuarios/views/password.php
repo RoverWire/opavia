@@ -4,6 +4,21 @@
 <div class="widget">
 	<div class="widget-content">
 		<form action="" method="post" class="form-horizontal">
+			<?php if ($this->session->flashdata('msg_success')): ?>
+				<div class="alert alert-success">
+					<button type="button" class="close" data-dismiss="alert">x</button>
+					<?php echo $this->session->flashdata('msg_success'); ?>
+				</div>
+			<?php endif ?>
+
+			<?php if (validation_errors() != ''): ?>
+			<div class="alert alert-error">
+				<button type="button" class="close" data-dismiss="alert">x</button>
+				<h4>Error</h4>
+				La información está incompleta o errónea.
+			</div>	
+			<?php endif ?>
+
 			<?php $error = form_error('actual'); ?>
 			<div class="control-group<?php echo ($error != '') ? ' error' : ''; ?>">
 				<label for="actual" class="control-label">Contraseña Actual</label>

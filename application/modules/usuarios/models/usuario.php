@@ -55,6 +55,19 @@ class Usuario extends MY_Model {
 		return FALSE;
 	}
 
+	public function comparar_password($pass, $id)
+	{
+		if (!empty($pass) && !empty($id)) {
+			$dato = $this->db->select('pass')->where('id', $id)->get($this->_table, 1)->row();
+			$hashed = $this->to_hash($pass, $dato->pass);
+			if ($dato->pass == $hashed) {
+				return TRUE;
+			}
+		}
+
+		return FALSE;
+	}
+
 	public function procesar_password($datos)
 	{
 		if(isset($datos['pass'])){

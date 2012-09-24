@@ -121,6 +121,7 @@ class Usuarios extends MY_Controller {
 			if ($this->usuario->auth($this->input->post('usuario', TRUE), $this->input->post('pass', TRUE))) {
 				$data = $this->usuario->por_usuario($this->input->post('usuario', TRUE));
 				$user = $data->row_array();
+				unset($user['pass']);
 				$this->session->set_userdata($user);
 				redirect('');
 			} else {

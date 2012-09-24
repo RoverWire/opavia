@@ -3,6 +3,13 @@
 <div class="widget">
 	<div class="widget-content">
 		<form action="" class="form-horizontal" method="post">
+			<?php if ($this->session->flashdata('msg_success')): ?>
+				<div class="alert alert-success">
+					<button type="button" class="close" data-dismiss="alert">x</button>
+					<?php echo $this->session->flashdata('msg_success'); ?>
+				</div>
+			<?php endif ?>
+			
 			<?php $error = form_error('datos[nombre]'); ?>
 			<div class="control-group<?php echo ($error != '') ? ' error' : ''; ?>">
 				<label for="nombre" class="control-label">Nombre</label>
