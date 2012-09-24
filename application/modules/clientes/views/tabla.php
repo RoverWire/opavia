@@ -1,10 +1,10 @@
 
 <h1 class="page-title"><i class="icon-user"></i> Consulta de Clientes</h1>
 
-<?php if (!empty($msg_success)): ?>
+<?php if ($this->session->flashdata('msg_success')): ?>
 	<div class="alert alert-success">
 		<button type="button" class="close" data-dismiss="alert">x</button>
-		<?php echo $msg_success; ?>
+		<?php echo $this->session->flashdata('msg_success'); ?>
 	</div>
 <?php endif ?>
 
@@ -22,8 +22,8 @@
 					<tr>
 						<th width="3%">#</th>
 						<th>Nombre</th>
-						<th>Telefono</th>
-						<th>E-Mail</th>
+						<th class="hidden-phone">Telefono</th>
+						<th class="hidden-phone">E-Mail</th>
 						<th width="4%">Opciones</th>
 					</tr>
 				</thead>
@@ -39,8 +39,8 @@
 					<tr>
 						<td><input type="checkbox" name="del[]" value="<?php echo $row->id; ?>"></td>
 						<td><?php echo $row->nombre.' '.$row->apellidos; ?> </td>
-						<td><?php echo $row->telefono; ?></td>
-						<td><?php echo $row->email; ?></td>
+						<td class="hidden-phone"><?php echo $row->telefono; ?></td>
+						<td class="hidden-phone"><?php echo $row->email; ?></td>
 						<td align="center">
 							<div class="btn-group">
 								<a href="/clientes/editar/<?php echo $row->id; ?>" class="btn btn-small" title="editar"><i class="icon-pencil"></i></a>
@@ -50,6 +50,13 @@
 					</tr>
 
 				<?php endforeach ?>
+
+				<?php if ($query->num_rows() == 0): ?>
+					<tr>
+						<td colspan="5">No se encontraron resultados</td>
+					</tr>
+					
+				<?php endif ?>
 				</tbody>
 			</table>
 		</div>

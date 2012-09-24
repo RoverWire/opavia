@@ -20,7 +20,6 @@ class Clientes extends MY_Controller {
 
 		$datos = array();
 		$datos['query'] = $this->cliente->get();
-		$datos['msg_success'] = $this->session->flashdata('msg_success');
 		$this->template->write('title', 'Clientes');
 		$this->template->write_view('content', 'tabla', $datos);
 		$this->template->asset_js('consulta.js');
