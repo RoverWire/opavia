@@ -24,7 +24,11 @@ label {
 .login-box {
 	margin:  0 auto;
 	display: block;
-	max-width: 280px;
+	width: 280px;
+}
+
+.login-input {
+	width: 210px;
 }
 
 .close {
@@ -412,4 +416,18 @@ hr {
 
 .center {
 	text-align: center !important;
+}
+
+@media (max-width: 979px) {
+	input.login-input {
+		width: 210px;
+	}
+
+	body {
+		padding-top: 0;	
+	}
+
+	.login-box {
+		padding-top: 70px;
+	}
 }

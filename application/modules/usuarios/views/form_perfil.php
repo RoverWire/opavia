@@ -30,8 +30,7 @@
 
 			<div class="control-group">
 				<div class="controls">
-					<button type="submit" class="btn">Guardar</button>
-					<a href="/usuarios/perfil" class="btn btn-inverse">Regresar</a>
+					<button type="submit" class="btn">Guardar</button>					
 				</div>
 			</div>
 		</form>

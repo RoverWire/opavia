@@ -22,8 +22,8 @@
 	<link href="/assets/font/opensans.css" rel="stylesheet">	
 	<link href="/assets/css/bootstrap.no.icons.min.css" rel="stylesheet">
 	<link href="/assets/css/font-awesome.css" rel="stylesheet">	
-	<link href="/assets/css/opavia.css" rel="stylesheet">
-	<link href="/assets/css/bootstrap-responsive.min.css" rel="stylesheet">	
+	<link href="/assets/css/bootstrap-responsive.min.css" rel="stylesheet">
+	<link href="/assets/css/opavia.css" rel="stylesheet"
 
 	<?php echo $_styles; ?>
 

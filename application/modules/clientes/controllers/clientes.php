@@ -8,7 +8,6 @@ class Clientes extends MY_Controller {
 	{
 		parent::__construct();
 		$this->load->model('cliente');
-		$this->form_validation->set_error_delimiters('<span class="help-inline">', '</span>');
 	}
 
 	public function index()
@@ -33,6 +32,7 @@ class Clientes extends MY_Controller {
 		$this->form_validation->set_rules('datos[nombre]', 'nombre', 'required|trim');
 		$this->form_validation->set_rules('datos[apellidos]', 'apellidos', 'required|trim');
 		$this->form_validation->set_rules('datos[email]', 'e-mail', 'required|valid_email|trim');
+		$this->form_validation->set_error_delimiters('<span class="help-inline">', '</span>');
 
 		if ($this->form_validation->run()) {
 			if ($this->cliente->insert( $this->input->post('datos') )) {
@@ -59,6 +59,7 @@ class Clientes extends MY_Controller {
 		$this->form_validation->set_rules('datos[nombre]', 'nombre', 'required|trim');
 		$this->form_validation->set_rules('datos[apellidos]', 'apellidos', 'required|trim');
 		$this->form_validation->set_rules('datos[email]', 'e-mail', 'required|valid_email|trim');
+		$this->form_validation->set_error_delimiters('<span class="help-inline">', '</span>');
 
 		if ($this->form_validation->run()) {
 			if ($this->cliente->update($this->input->post('datos'), $id) !== FALSE) {

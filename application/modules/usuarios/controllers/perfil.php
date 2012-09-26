@@ -14,9 +14,10 @@ class Perfil extends MY_Controller {
 	{
 		$this->form_validation->set_rules('datos[nombre]', 'nombre', 'required|trim');
 		$this->form_validation->set_rules('datos[apellidos]', 'apellidos', 'required|trim');
+		$this->form_validation->set_error_delimiters('<span class="help-inline">', '</span>');
 
 		if ($this->form_validation->run()) {
-			if ($this->usuario->update($this->input->post('datos'))) {
+			if ($this->usuario->update($this->input->post('datos')) !== FALSE) {
 				$datos = $this->input->post('datos');
 				$this->session->set_userdata($datos);
 				$this->session->set_flashdata('msg_success', 'Los datos del perfil han sido actualizados.');
@@ -40,9 +41,10 @@ class Perfil extends MY_Controller {
 		$this->form_validation->set_rules('actual', 'contraseña actual', 'required|min_length[6]|callback_password_check|trim');
 		$this->form_validation->set_rules('datos[pass]', 'nueva contraseña', 'required|min_length[6]|matches[repetir]|trim');
 		$this->form_validation->set_rules('repetir', 'repetir contraseña', 'required|trim');
+		$this->form_validation->set_error_delimiters('<span class="help-inline">', '</span>');
 
 		if ($this->form_validation->run()) {
-			if ($this->usuario->update($this->input->post('datos'))) {
+			if ($this->usuario->update($this->input->post('datos')) !== FALSE) {
 				$this->session->set_flashdata('msg_success', 'La contraseña ha sido cambiada.');
 				redirect('usuarios/perfil/password');
 			}

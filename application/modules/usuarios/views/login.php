@@ -11,12 +11,12 @@
 						<form action="" method="post" class="form-horizontal">
 							<div class="control-group input-prepend">
 								<span class="add-on"><i class="icon-user"></i></span>						
-								<input type="text" name="usuario" id="usuario" placeholder="usuario">						
+								<input type="text" name="usuario" id="usuario" class="login-input" placeholder="usuario">						
 							</div>
 
 							<div class="control-group input-prepend">
 								<span class="add-on"><i class="icon-lock"></i></span>
-								<input type="password" name="pass" id="pass" placeholder="contraseña">
+								<input type="password" name="pass" id="pass" class="login-input" placeholder="contraseña">
 							</div>
 
 							<div class="center">
