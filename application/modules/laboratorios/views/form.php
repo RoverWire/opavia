@@ -1,4 +1,4 @@
-<h1 class="page-title"><i class="icon-user"></i> <?php echo $titulo_form; ?></h1>
+<h1 class="page-title"><i class="icon-beaker"></i> <?php echo $titulo_form; ?></h1>
 
 <div class="widget">
 	<div class="widget-content">

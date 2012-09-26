@@ -1,5 +1,5 @@
 
-<h1 class="page-title"><i class="icon-truck"></i> Consulta de Laboratorios</h1>
+<h1 class="page-title"><i class="icon-beaker"></i> Consulta de Laboratorios</h1>
 
 <?php if ($this->session->flashdata('msg_success')): ?>
 	<div class="alert alert-success">
