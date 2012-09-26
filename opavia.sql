@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: localhost
--- Tiempo de generación: 24-09-2012 a las 07:10:09
+-- Tiempo de generación: 26-09-2012 a las 02:41:54
 -- Versión del servidor: 5.5.24
 -- Versión de PHP: 5.3.10-1ubuntu3.4
 
@@ -56,7 +56,14 @@ CREATE TABLE IF NOT EXISTS `clientes` (
   `causa_suspension` text NOT NULL,
   `vendedor` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
+
+--
+-- Volcado de datos para la tabla `clientes`
+--
+
+INSERT INTO `clientes` (`id`, `nombre`, `apellidos`, `direccion`, `telefono`, `email`, `rfc`, `limite_credito`, `status`, `fecha_suspension`, `causa_suspension`, `vendedor`) VALUES
+(1, 'Benito', 'Camelo', '', '1234567890', 'benito@camelo.com', 'PEPL86', 0, 1, '0000-00-00', '', 0);
 
 -- --------------------------------------------------------
 
@@ -77,6 +84,94 @@ CREATE TABLE IF NOT EXISTS `direcciones_ip` (
 
 INSERT INTO `direcciones_ip` (`ip`, `intentos`, `bloqueo`) VALUES
 ('127.0.0.1', 6, '2012-09-20 19:00:57');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `lentes`
+--
+
+CREATE TABLE IF NOT EXISTS `lentes` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `nombre` varchar(50) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `lentes_intensidad`
+--
+
+CREATE TABLE IF NOT EXISTS `lentes_intensidad` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `intensidad` varchar(50) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `lentes_material`
+--
+
+CREATE TABLE IF NOT EXISTS `lentes_material` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `material` varchar(50) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `lentes_tinte`
+--
+
+CREATE TABLE IF NOT EXISTS `lentes_tinte` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `tinte` varchar(50) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `lentes_tipo`
+--
+
+CREATE TABLE IF NOT EXISTS `lentes_tipo` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `tipo` varchar(50) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `proveedores`
+--
+
+CREATE TABLE IF NOT EXISTS `proveedores` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `nombre` varchar(150) NOT NULL,
+  `apellidos` varchar(150) NOT NULL,
+  `direccion` text NOT NULL,
+  `telefono` varchar(150) NOT NULL,
+  `email` varchar(150) NOT NULL,
+  `rfc` varchar(18) NOT NULL,
+  `limite_credito` float NOT NULL,
+  `status` tinyint(4) NOT NULL,
+  `fecha_suspension` date NOT NULL,
+  `causa_suspension` text NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
+
+--
+-- Volcado de datos para la tabla `proveedores`
+--
+
+INSERT INTO `proveedores` (`id`, `nombre`, `apellidos`, `direccion`, `telefono`, `email`, `rfc`, `limite_credito`, `status`, `fecha_suspension`, `causa_suspension`) VALUES
+(1, 'Jorge', 'Tolosa', '', '1234567890', 'info@tolosabates.com', 'TOBJ830630', 0, 1, '0000-00-00', '');
 
 -- --------------------------------------------------------
 
