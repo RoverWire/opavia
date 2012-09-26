@@ -316,12 +316,14 @@ class MY_Model extends CI_Model {
 	 * @return array        data initialized
 	 */
 	
-	public function prepare_data($data = '')
+	public function prepare_data($data = '', $return = '')
 	{
-		$return = array();
+		if (! is_array($return)) {
+			$return = array();
 
-		foreach ($this->field_names as $field) {
-			$return[$field] = '';
+			foreach ($this->field_names as $field) {
+				$return[$field] = '';
+			}
 		}
 
 		if(is_array($data)){

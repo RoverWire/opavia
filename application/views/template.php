@@ -64,8 +64,8 @@
 					<ul id="main-nav" class="nav nav-tabs nav-stacked">
 						<li><a href="#"><i class="icon-home"></i> Inicio</a></li>
 						<li><a href="/usuarios"><i class="icon-user"></i> Usuarios</a></li>
-						<li><a href="#"><i class="icon-truck"></i> Almacén</a></li>
-						<li><a href="#"><i class="icon-money"></i> Ventas</a></li>
+						<li><a href="/proveedores"><i class="icon-truck"></i> Proveedores</a></li>
+						<li><a href="/clientes"><i class="icon-user"></i> Clientes</a></li>
 					</ul>
 				</div>
 			</aside>

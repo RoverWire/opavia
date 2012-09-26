@@ -1,4 +1,4 @@
-<h1 class="page-title"><i class="icon-user"></i> <?php echo $titulo_form; ?></h1>
+<h1 class="page-title"><i class="icon-truck"></i> <?php echo $titulo_form; ?></h1>
 
 <div class="widget">
 	<div class="widget-content">
@@ -108,7 +108,7 @@
 			<div class="control-group">
 				<div class="controls">
 					<button type="submit" class="btn">Guardar</button>
-					<a href="/clientes" class="btn btn-inverse">Regresar</a>
+					<a href="/proveedores" class="btn btn-inverse">Regresar</a>
 				</div>
 			</div>
 		</form>

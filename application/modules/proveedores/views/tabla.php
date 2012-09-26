@@ -1,5 +1,5 @@
 
-<h1 class="page-title"><i class="icon-user"></i> Consulta de Clientes</h1>
+<h1 class="page-title"><i class="icon-truck"></i> Consulta de Proveedores</h1>
 
 <?php if ($this->session->flashdata('msg_success')): ?>
 	<div class="alert alert-success">
@@ -12,7 +12,7 @@
 	<form action="">
 		<div class="widget-header">
 			<div class="pull-right">
-				<a href="/clientes/agregar" class="btn btn-small btn-success"><i class="icon-plus"></i> Agregar</a> &nbsp;
+				<a href="/proveedores/agregar" class="btn btn-small btn-success"><i class="icon-plus"></i> Agregar</a> &nbsp;
 			</div>
 		</div>
 
@@ -43,8 +43,8 @@
 						<td class="hidden-phone"><?php echo $row->email; ?></td>
 						<td align="center">
 							<div class="btn-group">
-								<a href="/clientes/editar/<?php echo $row->id; ?>" class="btn btn-small" title="editar"><i class="icon-pencil"></i></a>
-								<a href="/clientes/eliminar/<?php echo $row->id; ?>" class="btn btn-small btn-danger" title="eliminar"><i class="icon-remove"></i></a>
+								<a href="/proveedores/editar/<?php echo $row->id; ?>" class="btn btn-small" title="editar"><i class="icon-pencil"></i></a>
+								<a href="/proveedores/eliminar/<?php echo $row->id; ?>" class="btn btn-small btn-danger" title="eliminar"><i class="icon-remove"></i></a>
 							</div>
 						</td>
 					</tr>
