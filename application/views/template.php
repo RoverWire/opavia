@@ -67,6 +67,7 @@
 						<li><a href="/proveedores"><i class="icon-truck"></i> Proveedores</a></li>
 						<li><a href="/clientes"><i class="icon-briefcase"></i> Clientes</a></li>
 						<li><a href="/laboratorios"><i class="icon-beaker"></i> Laboratorios</a></li>
+						<li><a href="/catalogo"><i class="icon-shopping-cart"></i> Catálogo</a></li>
 					</ul>
 				</div>
 			</aside>

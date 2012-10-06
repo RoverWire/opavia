@@ -38,7 +38,7 @@
 				<?php foreach ($query->result() as $row): ?>
 					<tr>
 						<td><input type="checkbox" name="del[]" value="<?php echo $row->id; ?>"></td>
-						<td><?php echo $row->nombre.' '.$row->apellidos; ?> </td>
+						<td><?php echo $row->nombre; ?> </td>
 						<td class="hidden-phone"><?php echo $row->telefono; ?></td>
 						<td class="hidden-phone"><?php echo $row->email; ?></td>
 						<td align="center">

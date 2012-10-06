@@ -4,7 +4,7 @@ class Proveedor extends MY_Model {
 
 	protected $_table = 'proveedores';
 	protected $_id    = 'id';
-	protected $field_names = array('nombre', 'apellidos', 'direccion', 'telefono', 'email', 'rfc', 'limite_credito', 'status', 'fecha_suspension', 'causa_suspension');
+	protected $field_names = array('nombre', 'direccion', 'telefono', 'email', 'rfc', 'status');
 
 	public function __construct()
 	{

@@ -393,7 +393,7 @@ class MY_Model extends CI_Model {
 		$str = '';
 
 		foreach ($opt as $key => $val) {
-			$attr = ($value == $selected) ? ' selected="selected"' : '';
+			$attr = ($key == $selected) ? ' selected' : '';
 			$str .= '<option value="'. $key . '"' . $attr . '>' . $val . "</option>\n";
 		}
 

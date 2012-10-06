@@ -28,7 +28,6 @@ class Proveedores extends MY_Controller {
 	{
 		$this->load->helper('formulario');
 		$this->form_validation->set_rules('datos[nombre]', 'nombre', 'required|trim');
-		$this->form_validation->set_rules('datos[apellidos]', 'apellidos', 'required|trim');
 		$this->form_validation->set_rules('datos[telefono]', 'telefono', 'required|trim');
 		$this->form_validation->set_rules('datos[rfc]', 'rfc', 'required|trim');
 		$this->form_validation->set_rules('datos[email]', 'e-mail', 'required|valid_email|trim');
@@ -57,7 +56,8 @@ class Proveedores extends MY_Controller {
 
 		$edit = $this->proveedor->get($id)->row_array();
 		$this->form_validation->set_rules('datos[nombre]', 'nombre', 'required|trim');
-		$this->form_validation->set_rules('datos[apellidos]', 'apellidos', 'required|trim');
+		$this->form_validation->set_rules('datos[telefono]', 'telefono', 'required|trim');
+		$this->form_validation->set_rules('datos[rfc]', 'rfc', 'required|trim');
 		$this->form_validation->set_rules('datos[email]', 'e-mail', 'required|valid_email|trim');
 		$this->form_validation->set_error_delimiters('<span class="help-inline">', '</span>');
 
