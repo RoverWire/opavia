@@ -21,8 +21,8 @@
 				<thead>
 					<tr>
 						<th width="2%">#</th>
-						<th>Nombre</th>
 						<th>Marca</th>
+						<th>Modelo</th>
 						<th>Existencia</th>
 						<th width="4%">Opciones</th>
 					</tr>
@@ -39,8 +39,8 @@
 				<?php foreach ($query->result() as $row): ?>
 					<tr>
 						<td><input type="checkbox" name="del[]" value="<?php echo $row->id; ?>"></td>
-						<td><?php echo $row->nombre ?></td>
 						<td><?php echo $row->marca ?></td>
+						<td><?php echo $row->modelo ?></td>
 						<td><?php echo $row->existencia ?></td>
 						<td class="center">
 							<div class="btn-group">

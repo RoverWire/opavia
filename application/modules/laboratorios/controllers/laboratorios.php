@@ -56,7 +56,7 @@ class Laboratorios extends MY_Controller {
 		$edit = $this->laboratorio->get($id)->row_array();
 		$this->form_validation->set_rules('datos[nombre]', 'nombre', 'required|trim');
 		$this->form_validation->set_rules('datos[telefono]', 'telefono', 'required|trim');
-		$this->form_validation->set_rules('datos[direccion]', 'dirección', 'required|valid_email|trim');
+		$this->form_validation->set_rules('datos[direccion]', 'dirección', 'required|trim');
 		$this->form_validation->set_error_delimiters('<span class="help-inline">', '</span>');
 
 		if ($this->form_validation->run()) {
