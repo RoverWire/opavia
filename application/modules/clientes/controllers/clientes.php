@@ -18,8 +18,14 @@ class Clientes extends MY_Controller {
 			redirect('clientes');
 		}
 
-		$datos = array();
-		$datos['query'] = $this->cliente->get();
+		$datos  = array();
+
+		if ($this->input->post('buscar')) {
+			$datos['query'] = $this->cliente->busqueda( $this->input->post('buscar', TRUE) );
+		} else {
+			$datos['query'] = $this->cliente->get();
+		}
+
 		$this->template->write('title', 'Clientes');
 		$this->template->write_view('content', 'tabla', $datos);
 		$this->template->asset_js('consulta.js');

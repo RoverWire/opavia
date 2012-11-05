@@ -11,6 +11,13 @@ class Cliente extends MY_Model {
 		parent::__construct();		
 	}
 
+	public function busqueda($buscar)
+	{
+		$this->db->like('nombre', $buscar, 'both');
+		$this->db->or_like('apellidos', $buscar, 'both');
+		return $this->db->get($this->_table);
+	}
+
 }
 
 /* End of file cliente.php */
