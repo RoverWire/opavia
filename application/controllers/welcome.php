@@ -26,6 +26,19 @@ class Welcome extends CI_Controller {
 	{
 		phpinfo();
 	}
+
+	public function test($offset = '')
+	{
+		$this->load->library('Pagination');
+
+		$config['base_url']   = 'test';
+        $config['total_rows'] = 1000;
+        $config['per_page']   = 10;
+		$config['cur_page']   = 500;
+
+		$this->pagination->initialize($config);
+		echo $this->pagination->create_links();
+	}
 }
 
 /* End of file welcome.php */
