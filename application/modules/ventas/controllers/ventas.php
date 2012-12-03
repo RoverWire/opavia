@@ -5,6 +5,7 @@ class Ventas extends MY_Controller {
 	public function __construct()
 	{
 		parent::__construct();
+		$this->load->model('clientes/cliente');
 	}
 
 	public function index()
@@ -16,13 +17,18 @@ class Ventas extends MY_Controller {
 
 	public function clientes()
 	{
+		$datos = array();
+		$datos['buscar'] = $this->input->post('buscar', TRUE);
+		$datos['query']  = $this->cliente->busqueda($datos['buscar']);
+
+		$this->template->write_view('content', 'cliente_listado', $datos);
+		$this->template->write('title', 'Listado de Clientes');
 		$this->template->render();
 	}
 
 	public function cliente_nuevo()
 	{
 		$this->load->helper('formulario');
-		$this->load->model('clientes/cliente');
 		$this->form_validation->set_error_delimiters('<span class="help-inline">', '</span>');
 		$this->form_validation->set_rules('datos[nombre]', 'nombre', 'required|trim');
 		$this->form_validation->set_rules('datos[apellidos]', 'apellidos', 'required|trim');
@@ -34,7 +40,7 @@ class Ventas extends MY_Controller {
 		if ($this->form_validation->run()) {
 			if ($this->cliente->insert( $this->input->post('datos') )) {
 				$this->session->set_flashdata('msg_success', 'El cliente ha sido agregado.');
-				redirect('ventas/nueva');
+				redirect('ventas/nueva/'.$this->db->insert_id());
 			}
 		}
 
@@ -43,8 +49,18 @@ class Ventas extends MY_Controller {
 		$this->template->render();
 	}
 
-	public function nueva()
+	public function nueva($idcliente)
 	{
+		if (! $this->cliente->exists($idcliente)) {
+			$this->session->set_flashdata('msg_warning', 'El usuario proporcionado no existe. Verificar número e intenter de nuevo');
+			redirect('ventas');
+		}
+
+		$datos = array();
+		$datos['cliente'] = $this->cliente->get($idcliente)->row();
+		$this->template->write('title', 'Venta');
+		$this->template->write_view('content', 'venta', $datos);
+		$this->template->add_js('ventas.js');
 		$this->template->render();
 	}
 
