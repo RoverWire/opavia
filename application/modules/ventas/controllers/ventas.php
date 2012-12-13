@@ -40,7 +40,7 @@ class Ventas extends MY_Controller {
 		if ($this->form_validation->run()) {
 			if ($this->cliente->insert( $this->input->post('datos') )) {
 				$this->session->set_flashdata('msg_success', 'El cliente ha sido agregado.');
-				redirect('ventas/nueva/'.$this->db->insert_id());
+				redirect('ventas/graduacion/'.$this->db->insert_id());
 			}
 		}
 
@@ -49,7 +49,7 @@ class Ventas extends MY_Controller {
 		$this->template->render();
 	}
 
-	public function nueva($idcliente)
+	public function graduacion($idcliente)
 	{
 		if (! $this->cliente->exists($idcliente)) {
 			$this->session->set_flashdata('msg_warning', 'El usuario proporcionado no existe. Verificar número e intenter de nuevo');
