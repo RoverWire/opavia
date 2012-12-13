@@ -1,0 +1,1 @@
+<h1 class="page-title"><i class="icon-user"></i> <?php echo $cliente->nombre.' '.$cliente->apellidos; ?></h1>

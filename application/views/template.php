@@ -39,7 +39,7 @@
 					<span class="icon-bar"></span>
 					<span class="icon-bar"></span>
 				</a>
-				<a class="brand" href="#">Óptica Pavía</a>
+				<a class="span2" href="#"><img src="/assets/img/logo.png" alt=""></a>
 				<div class="nav-collapse collapse">
 					<ul class="nav pull-right">
 						<li class="dropdown">

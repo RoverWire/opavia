@@ -92,6 +92,19 @@ class Clientes extends MY_Controller {
 		redirect('clientes');
 	}
 
+	public function detalles($id = '')
+	{
+		if (! $this->cliente->exists($id)) {
+			redirect('clientes');
+		}
+
+		$datos            = array();
+		$datos['cliente'] = $this->cliente->get($id)->row();
+		$this->template->write('title', 'Detalles de Cliente');
+		$this->template->write_view('content', 'details', $datos);
+		$this->template->render();
+	}
+
 }
 
 /* End of file clientes.php */

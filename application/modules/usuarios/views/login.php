@@ -3,8 +3,8 @@
 		<div class="row-fluid">
 			<div class="login-box">
 				<div class="widget">
-					<div class="widget-header">
-						<h3>Inicio de Sesión</h3>
+					<div class="widget-header center">
+						<img src="/assets/img/logo_login.png" alt="">
 					</div>
 					<div class="widget-content">
 						<?php echo validation_errors(); ?>

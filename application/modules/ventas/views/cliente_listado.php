@@ -42,7 +42,7 @@
 						<td><?php echo $row->apellidos; ?> </td>
 						<td align="center">
 							<div class="btn-group">
-								<a href="/ventas/nueva/<?php echo $row->id; ?>" class="btn btn-small" title="editar">Seleccionar</a>
+								<a href="/ventas/graduaciones/<?php echo $row->id; ?>" class="btn btn-small" title="editar">Seleccionar</a>
 							</div>
 						</td>
 					</tr>

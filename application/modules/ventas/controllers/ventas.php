@@ -6,10 +6,12 @@ class Ventas extends MY_Controller {
 	{
 		parent::__construct();
 		$this->load->model('clientes/cliente');
+		$this->load->model('graduaciones/graduacion');
 	}
 
 	public function index()
 	{
+		$this->session->unset_userdata('venta_cliente');
 		$this->template->write('title', 'Ventas');
 		$this->template->write_view('content', 'venta_nueva');
 		$this->template->render();
@@ -40,7 +42,9 @@ class Ventas extends MY_Controller {
 		if ($this->form_validation->run()) {
 			if ($this->cliente->insert( $this->input->post('datos') )) {
 				$this->session->set_flashdata('msg_success', 'El cliente ha sido agregado.');
-				redirect('ventas/graduacion/'.$this->db->insert_id());
+				$id_cliente = $this->db->insert_id();
+				$this->session->set_userdata('venta_cliente', $id_cliente);
+				redirect('ventas/graduacion/'.$id_cliente);
 			}
 		}
 
@@ -49,18 +53,63 @@ class Ventas extends MY_Controller {
 		$this->template->render();
 	}
 
-	public function graduacion($idcliente)
+	public function graduaciones($id_cliente = '')
 	{
-		if (! $this->cliente->exists($idcliente)) {
+		if (! $this->cliente->exists($id_cliente)) {
 			$this->session->set_flashdata('msg_warning', 'El usuario proporcionado no existe. Verificar número e intenter de nuevo');
 			redirect('ventas');
 		}
 
-		$datos = array();
-		$datos['cliente'] = $this->cliente->get($idcliente)->row();
-		$this->template->write('title', 'Venta');
-		$this->template->write_view('content', 'venta', $datos);
+		$this->session->set_userdata('venta_cliente', $id_cliente);
+
+		$datos               = array();
+		$datos['cliente']    = $this->cliente->get($id_cliente)->row();
+		$datos['query']      = $this->graduacion->where('id_cliente', $id_cliente)->get();
+		$datos['id_cliente'] = $id_cliente;
+
+		$this->template->write('title', 'Graduaciones');
+		$this->template->write_view('content', 'graduaciones/listado_ventas', $datos);
 		$this->template->add_js('ventas.js');
+		$this->template->render();
+	}
+
+	public function agregar_graduacion($id_cliente)
+	{
+		if (! $this->cliente->exists($id_cliente)) {
+			$this->session->set_flashdata('msg_warning', 'El usuario proporcionado no existe. Verificar número e intenter de nuevo');
+			redirect('ventas');
+		}
+
+		$this->form_validation->set_rules('datos[od_sph]', 'esfera', 'required|trim');
+		$this->form_validation->set_rules('datos[od_cyl]', 'cilindro', 'required|trim');
+		$this->form_validation->set_rules('datos[od_axis]', 'eje', 'required|trim');
+		$this->form_validation->set_rules('datos[od_add]', 'esfera de cerca', 'required|trim');
+		$this->form_validation->set_rules('datos[oi_sph]', 'esfera', 'required|trim');
+		$this->form_validation->set_rules('datos[oi_cyl]', 'cilindro', 'required|trim');
+		$this->form_validation->set_rules('datos[oi_axis]', 'eje', 'required|trim');
+		$this->form_validation->set_rules('datos[oi_add]', 'esfera de cerca', 'required|trim');
+		$this->form_validation->set_error_delimiters('<span class="help-inline">', '</span>');
+
+		if ($this->form_validation->run()) {
+			$_POST['datos']['id_cliente'] = $id_cliente;
+			if ($this->graduacion->insert($this->input->post('datos')) !== FALSE) {
+				$this->session->set_flashdata('msg_success', 'La graduación ha sido añadida al usuario.');
+				redirect('graduaciones/index/'.$id_cliente);
+			}
+		}
+
+		$datos                = $this->graduacion->prepare_data( $this->input->post('datos') );
+		$datos['idcliente']   = $id_cliente;
+
+		$this->template->render();
+	}
+
+	public function articulos()
+	{
+		if (! $this->session->userdata('venta_cliente')) {
+			redirect('ventas');
+		}
+		
 		$this->template->render();
 	}
 

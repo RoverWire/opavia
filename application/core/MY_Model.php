@@ -212,6 +212,7 @@ class MY_Model extends CI_Model {
 				$this->db->where_in($this->_id, $id);
 			} else {
 				$this->db->where($this->_id, $id);
+				$this->db->limit(1);
 			}
 		}
 

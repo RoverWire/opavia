@@ -1,4 +1,4 @@
-<h1 class="page-title"><i class="icon-beaker"></i> <?php echo $titulo_form; ?></h1>
+<h1 class="page-title"><i class="icon-eye-open"></i> <?php echo $titulo_form; ?></h1>
 
 <div class="widget">
 	<div class="widget-content">
@@ -14,38 +14,38 @@
 
 			<legend>Ojo Derecho</legend>
 
-			<?php $error = form_error('datos[oi_sph]'); ?>
+			<?php $error = form_error('datos[od_sph]'); ?>
 			<div class="control-group<?php echo ($error != '') ? ' error' : ''; ?>">
-				<label for="oi_sph" class="control-label">Esfera</label>
+				<label for="od_sph" class="control-label">Esfera</label>
 				<div class="controls">
-					<input type="text" class="input-small" name="datos[oi_sph]" id="oi_sph" value="<?php echo set_value('oi_sph', $oi_sph); ?>">
+					<input type="text" class="input-small" name="datos[od_sph]" id="od_sph" value="<?php echo set_value('od_sph', $od_sph); ?>">
 					<?php echo $error ?>
 				</div>
 			</div>
 
-			<?php $error = form_error('datos[oi_cyl]'); ?>
+			<?php $error = form_error('datos[od_cyl]'); ?>
 			<div class="control-group<?php echo ($error != '') ? ' error' : ''; ?>">
-				<label for="oi_cyl" class="control-label">Cilindro</label>
+				<label for="od_cyl" class="control-label">Cilindro</label>
 				<div class="controls">
-					<input type="text" class="input-small" name="datos[oi_cyl]" id="oi_cyl" value="<?php echo set_value('oi_cyl', $oi_cyl); ?>">
+					<input type="text" class="input-small" name="datos[od_cyl]" id="od_cyl" value="<?php echo set_value('od_cyl', $od_cyl); ?>">
 					<?php echo $error ?>
 				</div>
 			</div>
 
-			<?php $error = form_error('datos[oi_axis]'); ?>
+			<?php $error = form_error('datos[od_axis]'); ?>
 			<div class="control-group<?php echo ($error != '') ? ' error' : ''; ?>">
-				<label for="oi_axis" class="control-label">Eje</label>
+				<label for="od_axis" class="control-label">Eje</label>
 				<div class="controls">
-					<input type="text" class="input-small" name="datos[oi_axis]" id="oi_axis" value="<?php echo set_value('oi_axis', $oi_axis); ?>">
+					<input type="text" class="input-small" name="datos[od_axis]" id="od_axis" value="<?php echo set_value('od_axis', $od_axis); ?>">
 					<?php echo $error ?>
 				</div>
 			</div>
 
-			<?php $error = form_error('datos[oi_add]'); ?>
+			<?php $error = form_error('datos[od_add]'); ?>
 			<div class="control-group<?php echo ($error != '') ? ' error' : ''; ?>">
-				<label for="oi_add" class="control-label">Esfera de Cerca</label>
+				<label for="od_add" class="control-label">Esfera de Cerca</label>
 				<div class="controls">
-					<input type="text" class="input-small" name="datos[oi_add]" id="oi_add" value="<?php echo set_value('oi_add', $oi_add); ?>">
+					<input type="text" class="input-small" name="datos[od_add]" id="od_add" value="<?php echo set_value('od_add', $od_add); ?>">
 					<?php echo $error ?>
 				</div>
 			</div>
@@ -91,7 +91,7 @@
 			<div class="control-group">
 				<div class="controls">
 					<button type="submit" class="btn">Guardar</button>
-					<a href="/graduaciones/index/<?php echo $idcliente ?>" class="btn btn-inverse">Regresar</a>
+					<a href="/graduaciones/index/<?php echo $id_cliente ?>" class="btn btn-inverse">Regresar</a>
 				</div>
 			</div>
 

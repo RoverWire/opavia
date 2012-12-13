@@ -44,6 +44,7 @@
 						<td align="center">
 							<div class="btn-group">
 								<a href="/clientes/editar/<?php echo $row->id; ?>" class="btn btn-small" title="editar"><i class="icon-pencil"></i></a>
+								<a href="/clientes/detalles/<?php echo $row->id; ?>" class="btn btn-small" title="detalles"><i class="icon-user"></i></a>
 								<a href="/clientes/eliminar/<?php echo $row->id; ?>" class="btn btn-small btn-danger" title="eliminar"><i class="icon-remove"></i></a>
 							</div>
 						</td>
