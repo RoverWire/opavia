@@ -1,6 +1,6 @@
 <?php
  
-if (! function_exists(drop_lentes))
+if (! function_exists('drop_lentes'))
 {
 	function drop_lentes($nombre, $sel = '', $attr = '')
 	{
@@ -16,7 +16,7 @@ if (! function_exists(drop_lentes))
 	}
 }
  
-if (! function_exists(drop_lentes_tipo))
+if (! function_exists('drop_lentes_tipo'))
 {
 	function drop_lentes_tipo($nombre, $sel = '', $attr = '')
 	{
@@ -32,7 +32,7 @@ if (! function_exists(drop_lentes_tipo))
 	}
 }
 
-if (! function_exists(drop_lentes_tinte))
+if (! function_exists('drop_lentes_tinte'))
 {
 	function drop_lentes_tinte($nombre, $sel = '', $attr = '')
 	{
@@ -48,7 +48,7 @@ if (! function_exists(drop_lentes_tinte))
 	}
 }
 
-if (! function_exists(drop_lentes_intensidad))
+if (! function_exists('drop_lentes_intensidad'))
 {
 	function drop_lentes_intensidad($nombre, $sel = '', $attr = '')
 	{
@@ -63,7 +63,7 @@ if (! function_exists(drop_lentes_intensidad))
 	}
 }
 
-if (! function_exists(drop_lentes_aplicacion))
+if (! function_exists('drop_lentes_aplicacion'))
 {
 	function drop_lentes_aplicacion($nombre, $sel = '', $attr = '')
 	{
@@ -76,7 +76,7 @@ if (! function_exists(drop_lentes_aplicacion))
 	}
 }
 
-if (! function_exists(drop_lentes_material))
+if (! function_exists('drop_lentes_material'))
 {
 	function drop_lentes_material($nombre, $sel = '', $attr = '')
 	{
@@ -93,7 +93,7 @@ if (! function_exists(drop_lentes_material))
 	}
 }
 
-if (! function_exists(drop_lentes_tratamiento))
+if (! function_exists('drop_lentes_tratamiento'))
 {
 	function drop_lentes_tratamiento($nombre, $sel = '', $attr = '')
 	{

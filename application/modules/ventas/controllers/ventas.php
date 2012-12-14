@@ -93,14 +93,33 @@ class Ventas extends MY_Controller {
 		if ($this->form_validation->run()) {
 			$_POST['datos']['id_cliente'] = $id_cliente;
 			if ($this->graduacion->insert($this->input->post('datos')) !== FALSE) {
-				$this->session->set_flashdata('msg_success', 'La graduación ha sido añadida al usuario.');
-				redirect('graduaciones/index/'.$id_cliente);
+				$id_graduacion = $this->db->insert_id();
+				$this->session->set_userdata('ventas_graduacion', $id_graduacion);
+				redirect('ventas/orden/'.$id_graduacion);
 			}
 		}
 
 		$datos                = $this->graduacion->prepare_data( $this->input->post('datos') );
 		$datos['idcliente']   = $id_cliente;
+		$datos['titulo_form'] = 'Agregar Graduación';
 
+		$this->template->write('title', 'Agregar Graduación');
+		$this->template->write_view('content', 'graduaciones/form_ventas', $datos);
+		$this->template->render();
+	}
+
+	public function orden($id_graduacion = '')
+	{
+		if (! $this->graduacion->exists($id_graduacion)) {
+			redirect('ventas');
+		}
+
+		$this->load->model('graduaciones/orden');
+		$this->load->helper('lentes');
+
+		$datos = $this->orden->prepare_data( $this->input->post('datos') );
+		$this->template->write('title', 'Orden a Laboratorio');
+		$this->template->write_view('content', 'orden_form', $datos);
 		$this->template->render();
 	}
 
@@ -109,6 +128,7 @@ class Ventas extends MY_Controller {
 		if (! $this->session->userdata('venta_cliente')) {
 			redirect('ventas');
 		}
+		
 		
 		$this->template->render();
 	}
