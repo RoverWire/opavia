@@ -64,10 +64,10 @@ $db['default']['swap_pre'] = '';
 $db['default']['autoinit'] = TRUE;
 $db['default']['stricton'] = FALSE;
 
-$db['phpfog']['hostname'] = "mysql-shared-02.phpfog.com";
-$db['phpfog']['username'] = "slashcat-9-54575";
-$db['phpfog']['password'] = "GC42E41b14tX";
-$db['phpfog']['database'] = "opavia_phpfogapp_com";
+$db['phpfog']['hostname'] = "";
+$db['phpfog']['username'] = "";
+$db['phpfog']['password'] = "";
+$db['phpfog']['database'] = "";
 $db['phpfog']['dbdriver'] = "mysql";
 $db['phpfog']['dbprefix'] = "";
 $db['phpfog']['pconnect'] = TRUE;
