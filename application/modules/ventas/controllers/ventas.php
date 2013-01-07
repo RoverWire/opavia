@@ -136,7 +136,11 @@ class Ventas extends MY_Controller {
 		$this->load->model('catalogo/articulo');
 		
 		$datos = array();
-		$datos['query'] = $this->articulo->get();
+		$buscar  = $this->input->post('buscar', TRUE); 
+		$arreglo = array('marca' => $buscar, 'modelo' => $buscar);
+		$datos['query']  = $this->articulo->or_like($arreglo)->get();
+		$datos['buscar'] = $this->input->post('buscar');
+
 		$this->template->write('title', 'Artículos');
 		$this->template->write_view('content', 'articulos_listado', $datos);
 		$this->template->asset_js('consulta.js');

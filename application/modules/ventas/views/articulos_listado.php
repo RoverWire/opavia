@@ -11,7 +11,10 @@
 <div class="widget widget-table">
 	<form action="" id="consulta" method="post">
 		<div class="widget-header">			
-			
+			&nbsp;
+
+			<input type="text" name="buscar" value="<?php echo $buscar ?>" class="span2 search-query">
+			<button type="submit" class="btn btn-small btn-success">Buscar</button>
 		</div>
 		<div class="widget-content">
 			<table class="table table-striped table-bordered">
