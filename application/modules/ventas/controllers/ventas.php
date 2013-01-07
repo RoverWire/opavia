@@ -123,13 +123,23 @@ class Ventas extends MY_Controller {
 		$this->template->render();
 	}
 
-	public function articulos()
+	public function articulos($idcliente = '')
 	{
-		if (! $this->session->userdata('venta_cliente')) {
+		if (! $this->session->userdata('venta_cliente') && empty($idcliente)) {
 			redirect('ventas');
 		}
+
+		if (! empty($idcliente)) {
+			$this->session->set_userdata('venta_cliente', $idcliente);
+		}
+
+		$this->load->model('catalogo/articulo');
 		
-		
+		$datos = array();
+		$datos['query'] = $this->articulo->get();
+		$this->template->write('title', 'Artículos');
+		$this->template->write_view('content', 'articulos_listado', $datos);
+		$this->template->asset_js('consulta.js');
 		$this->template->render();
 	}
 
