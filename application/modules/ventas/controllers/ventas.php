@@ -123,7 +123,7 @@ class Ventas extends MY_Controller {
 		$this->template->render();
 	}
 
-	public function articulos($idcliente = '')
+	public function articulos($idcliente = '', $idarticulo = '')
 	{
 		if (! $this->session->userdata('venta_cliente') && empty($idcliente)) {
 			redirect('ventas');

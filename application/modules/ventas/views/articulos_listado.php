@@ -41,7 +41,7 @@
 						<td><?php echo $row->modelo ?></td>
 						<td><?php echo $row->existencia ?></td>
 						<td class="center">
-							<a href="/catalogo/editar/<?php echo $row->id; ?>" class="btn btn-small" title="editar">Seleccionar</a>								 
+							<a href="/ventas/articulos/<?php echo $row->id; ?>/<?php echo $buscar; ?>" class="btn btn-small" title="editar">Seleccionar</a>								 
 						</td>	
 					</tr>
 

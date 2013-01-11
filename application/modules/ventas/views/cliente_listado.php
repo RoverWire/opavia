@@ -14,7 +14,7 @@
 			&nbsp;
 
 			<input type="text" name="buscar" value="<?php echo $buscar ?>" class="span2 search-query">
-			<button type="submit" class="btn btn-success">Buscar</button>
+			<button type="submit" class="btn btn-small btn-success">Buscar</button>
 			
 
 		</div>
@@ -42,7 +42,7 @@
 						<td><?php echo $row->apellidos; ?> </td>
 						<td align="center">
 							<div class="btn-group">
-								<a href="/ventas/graduaciones/<?php echo $row->id; ?>" class="btn btn-small" title="editar">Seleccionar</a>
+								<a href="/ventas/articulos/<?php echo $row->id; ?>" class="btn btn-small" title="editar">Seleccionar</a>
 							</div>
 						</td>
 					</tr>
