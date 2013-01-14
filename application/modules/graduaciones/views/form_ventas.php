@@ -91,7 +91,7 @@
 			<div class="control-group">
 				<div class="controls">
 					<button type="submit" class="btn">Guardar</button>
-					<a href="/ventas/articulos" class="btn btn-inverse">Omitir</a>
+					<a href="/ventas/graduaciones/<?php echo $idcliente ?>" class="btn btn-inverse">Regresar</a>
 				</div>
 			</div>
 

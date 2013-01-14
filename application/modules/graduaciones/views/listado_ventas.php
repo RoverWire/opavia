@@ -30,7 +30,7 @@
 				<tfoot>
 					<tr>
 						<td colspan="9" class="center">
-							<a href="/ventas/articulos" class="btn btn-inverse">Omitir e ir a Selección de Artículos</a>
+							<a href="/ventas/orden/0" class="btn btn-small">Omitir Graduación</a>
 						</td>
 					</tr>
 				</tfoot>
@@ -46,7 +46,7 @@
 						<td class="center"><?php echo $row->oi_axis ?></td>
 						<td class="center"><?php echo $row->oi_add ?></td>
 						<td class="center">
-							<a href="/agregar_orden/<?php echo $row->id; ?>" class="btn btn-small">Seleccionar</a>
+							<a href="/ventas/orden/<?php echo $row->id; ?>" class="btn btn-small">Seleccionar</a>
 						</td>
 					</tr>
 

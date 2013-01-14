@@ -318,6 +318,14 @@ hr {
 	border-left: none;
 }
 
+.force-top {
+	padding: 4px 10px;
+}
+
+.force-top input, .force-top .btn {
+	vertical-align: top;
+}
+
 
 
 /*------------------------------------------------------------------
@@ -420,6 +428,10 @@ hr {
 
 .center {
 	text-align: center !important;
+}
+
+.right {
+	text-align: right !important;
 }
 
 @media (max-width: 979px) {

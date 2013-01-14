@@ -10,13 +10,12 @@
 <div class="widget widget-table">
 	<form action="" method="post" class="form-search">
 		<div class="widget-header">
-
-			&nbsp;
-
-			<input type="text" name="buscar" value="<?php echo $buscar ?>" class="span2 search-query">
-			<button type="submit" class="btn btn-small btn-success">Buscar</button>
-			
-
+			<div class="form-search force-top">
+				<div class="input-append">
+					<input type="text" name="buscar" value="<?php echo $buscar ?>" class="span2 search-query">
+					<button type="submit" class="btn"><i class="icon-search"></i></button>
+				</div>
+			</div>
 		</div>
 
 		<div class="widget-content">
@@ -30,8 +29,8 @@
 				</thead>
 				<tfoot>
 					<tr>
-						<td colspan="6">
-							
+						<td colspan="6" class="center">
+							<a href="/ventas" class="btn btn-inverse btn-small">Regresar a Ventas</a>
 						</td>
 					</tr>
 				</tfoot>
@@ -40,10 +39,8 @@
 					<tr>
 						<td><?php echo $row->nombre; ?></td>
 						<td><?php echo $row->apellidos; ?> </td>
-						<td align="center">
-							<div class="btn-group">
-								<a href="/ventas/articulos/<?php echo $row->id; ?>" class="btn btn-small" title="editar">Seleccionar</a>
-							</div>
+						<td align="center">							
+							<a href="/ventas/articulos/<?php echo $row->id; ?>" class="btn btn-small" title="editar">Seleccionar</a>							
 						</td>
 					</tr>
 

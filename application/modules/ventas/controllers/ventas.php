@@ -12,6 +12,9 @@ class Ventas extends MY_Controller {
 	public function index()
 	{
 		$this->session->unset_userdata('venta_cliente');
+		$this->session->unset_userdata('venta_articulos');
+		$this->session->unset_userdata('venta_graduacion');
+
 		$this->template->write('title', 'Ventas');
 		$this->template->write_view('content', 'venta_nueva');
 		$this->template->render();
@@ -41,10 +44,9 @@ class Ventas extends MY_Controller {
 
 		if ($this->form_validation->run()) {
 			if ($this->cliente->insert( $this->input->post('datos') )) {
-				$this->session->set_flashdata('msg_success', 'El cliente ha sido agregado.');
 				$id_cliente = $this->db->insert_id();
 				$this->session->set_userdata('venta_cliente', $id_cliente);
-				redirect('ventas/graduacion/'.$id_cliente);
+				redirect('ventas/articulos/'.$id_cliente);
 			}
 		}
 
@@ -94,7 +96,7 @@ class Ventas extends MY_Controller {
 			$_POST['datos']['id_cliente'] = $id_cliente;
 			if ($this->graduacion->insert($this->input->post('datos')) !== FALSE) {
 				$id_graduacion = $this->db->insert_id();
-				$this->session->set_userdata('ventas_graduacion', $id_graduacion);
+				$this->session->set_userdata('venta_graduacion', $id_graduacion);
 				redirect('ventas/orden/'.$id_graduacion);
 			}
 		}
@@ -110,16 +112,95 @@ class Ventas extends MY_Controller {
 
 	public function orden($id_graduacion = '')
 	{
-		if (! $this->graduacion->exists($id_graduacion)) {
+		if (!$this->session->userdata('venta_cliente')) {
 			redirect('ventas');
 		}
 
-		$this->load->model('graduaciones/orden');
-		$this->load->helper('lentes');
+		$this->load->model('venta');
+		$this->load->model('venta_articulo');
+		$this->load->model('catalogo/articulo');
+		$this->load->model('laboratorios/laboratorio');
+		$this->load->model('graduaciones/graduacion');
+		$this->load->model('abono');
 
-		$datos = $this->orden->prepare_data( $this->input->post('datos') );
+		$this->form_validation->set_error_delimiters('<span class="help-inline">', '</span>');
+		$this->form_validation->set_rules('datos[id_cliente]', 'cliente', 'required|trim');
+		$this->form_validation->set_rules('datos[total]', 'total', 'required|trim');
+
+		if ($this->input->post('tipo_operacion') == 'venta') {
+			$this->form_validation->set_rules('abono', 'efectivo', 'required|trim');
+			$this->form_validation->set_rules('datos[fecha_entrega]', 'fecha entrega', 'required|trim');
+		}
+
+		if ($this->form_validation->run()) {
+			$datos = $this->input->post('datos');
+			$datos['fecha'] = date('Y-m-d');
+
+			if ($this->input->post('tipo_operacion')) {
+				$datos['folio_venta'] = $this->venta->folio_siguiente();
+			}
+
+			if ($this->input->post('tipo_operacion') == 'venta' && $datos['total'] == $this->input->post('abono')) {
+				$datos['saldado'] = 1;
+			}
+
+			if ($this->venta->insert($datos)) {
+				$id_venta = $this->db->insert_id();
+				$limit = sizeof($this->input->post('articulos'));
+				$articulos = $this->input->post('articulos');
+
+				for ($i=0; $i < $limit; $i++) { 
+					$articulos[$i]['id_venta'] = $id_venta;
+					$this->venta_articulo->insert($articulos[$i]);
+				}
+
+				if ($this->input->post('tipo_operacion')) {
+					$abono['fecha']    = date('Y-m-d');
+					$abono['abono']    = $this->input->post('abono');
+					$abono['id_venta'] = $id_venta;
+					$abono['saldo']    = $datos['total'] - $abono['abono'];
+
+					$this->abono->insert($abono);
+				}
+			}
+
+			redirect('ventas/finalizado/'.$id_venta);
+		}
+
+
+		if (!empty($id_graduacion)) {
+			$this->session->set_userdata('venta_graduacion', $id_graduacion);
+		}
+
+		if ($this->session->userdata('venta_graduacion') && empty($id_graduacion)) {
+			$id_graduacion = $this->session->userdata('venta_graduacion');
+		}
+
+		$this->load->helper('lentes');
+		$datos = $this->venta->prepare_data( $this->input->post('datos') );
+		$datos['id_graduacion'] = $id_graduacion;
+		$datos['id_cliente']    = $this->session->userdata('venta_cliente');
+
+		if (!empty($id_graduacion)) {
+			$datos['laboratorios'] = $this->laboratorio->get();
+			$datos['graduacion']   = $this->graduacion->limit(1)->get($id_graduacion);
+		}
+
+		if ($this->session->userdata('venta_articulos') && is_array($this->session->userdata('venta_articulos'))) {
+			$id_articulos    =  array_keys($this->session->userdata('venta_articulos'));
+			$datos['lista_articulos'] = $this->articulo->where_in('id', $id_articulos)->get();
+		}
+
 		$this->template->write('title', 'Orden a Laboratorio');
 		$this->template->write_view('content', 'orden_form', $datos);
+		$this->template->asset_js('bootstrap-datepicker.js');
+		$this->template->asset_js('ventas.js');
+		$this->template->asset_css('datepicker.css');
+		$this->template->render();
+	}
+
+	public function finalizado($id_venta ='')
+	{
 		$this->template->render();
 	}
 
@@ -137,17 +218,61 @@ class Ventas extends MY_Controller {
 		
 		$datos = array();
 		$buscar  = $this->input->post('buscar', TRUE); 
-		$arreglo = array('marca' => $buscar, 'modelo' => $buscar);
-		$datos['query']  = $this->articulo->or_like($arreglo)->get();
-		$datos['buscar'] = $this->input->post('buscar');
+		$datos['buscar']    = $this->input->post('buscar');
+		$datos['articulos'] = $this->session->userdata('venta_articulos');
+		$datos['idcliente'] = $idcliente;
+
+		if ($this->session->userdata('venta_articulos')) {
+			$datos['contador'] = count($this->session->userdata('venta_articulos'));
+		} else {
+			$datos['contador'] = 0;
+		}
+
+		if (!empty($buscar)) {
+			$arreglo = array('marca' => $buscar, 'modelo' => $buscar);
+			$datos['query']  = $this->articulo->or_like($arreglo)->get();
+		}
 
 		$this->template->write('title', 'Artículos');
 		$this->template->write_view('content', 'articulos_listado', $datos);
 		$this->template->asset_js('consulta.js');
+		$this->template->asset_js('ventas.js');
 		$this->template->render();
 	}
 
+	public function agregar_articulo()
+	{
+		if ($this->input->is_ajax_request()) {
+			if ($this->session->userdata('venta_articulos')) {
+				$articulos = $this->session->userdata('venta_articulos');
+			} else {
+				$articulos = array();
+			}
 
+			$articulos[$this->input->post('id')] = 1;
+			$this->session->set_userdata('venta_articulos', $articulos);
+
+			$return = array('status' => 'success', 'total' => count($articulos));
+			echo json_encode($return);	
+		}	
+	}
+
+	public function eliminar_articulo()
+	{
+		if ($this->input->is_ajax_request()) {
+			
+			if ($this->session->userdata('venta_articulos')) {
+				$articulos = $this->session->userdata('venta_articulos');
+				unset($articulos[$this->input->post('id')]);
+				$this->session->set_userdata('venta_articulos', $articulos);
+			} else {
+				$articulos = array();
+			}
+
+			$return = array('status' => 'success', 'total' => count($articulos));
+			echo json_encode($return);	
+		}
+	}
 
 }
 
