@@ -12,8 +12,8 @@
 			<table class="table table-striped table-bordered">
 				<thead>
 					<tr>
-						<th colspan="4" class="center">Ojo Izquierdo</th>
 						<th colspan="4" class="center">Ojo Derecho</th>
+						<th colspan="4" class="center">Ojo Izquierdo</th>
 						<th width="4%" rowspan="2">Opciones</th>
 					</tr>
 					<tr>
