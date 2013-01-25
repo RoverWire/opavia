@@ -147,11 +147,11 @@ class Ventas extends MY_Controller {
 			if ($this->venta->insert($datos)) {
 				$id_venta = $this->db->insert_id();
 				$limit = sizeof($this->input->post('articulos'));
-				$articulos = $this->input->post('articulos');
+				$articulo = $this->input->post('articulo');
 
 				for ($i=0; $i < $limit; $i++) { 
-					$articulos[$i]['id_venta'] = $id_venta;
-					$this->venta_articulo->insert($articulos[$i]);
+					$articulo[$i]['id_venta'] = $id_venta;
+					$this->venta_articulo->insert($articulo[$i]);
 				}
 
 				if ($this->input->post('tipo_operacion')) {
@@ -216,7 +216,7 @@ class Ventas extends MY_Controller {
 
 		$this->load->model('catalogo/articulo');
 		
-		$datos = array();
+		$datos   = array();
 		$buscar  = $this->input->post('buscar', TRUE); 
 		$datos['buscar']    = $this->input->post('buscar');
 		$datos['articulos'] = $this->session->userdata('venta_articulos');

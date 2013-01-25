@@ -2,7 +2,7 @@
 
 class Abono extends MY_Model {
 
-	protected $_table = 'abono';
+	protected $_table = 'abonos';
 	protected $_id = 'id';
 	protected $field_names = array('fecha', 'abono', 'saldo', 'id_venta');
 
