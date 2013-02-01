@@ -67,7 +67,7 @@ class Usuarios extends MY_Controller {
 		$this->form_validation->set_rules('datos[tipo]', 'tipo de usuario', 'required|integer|trim');
 		$this->form_validation->set_rules('datos[activo]', 'estado', 'required|integer|trim');
 
-		if (isset($_POST['datos']['usuario']) && $edit['usuario'] != trim($_POST['datos']['usuario'])) {
+		if (isset($_POST['datos']['usuario']) && strtolower($edit['usuario']) != strtolower($_POST['datos']['usuario'])) {
 			$this->form_validation->set_rules('datos[usuario]', 'usuario', 'required|max_length[50]|is_unique[usuarios.usuario]|trim');
 		}
 
