@@ -201,6 +201,16 @@ class Ventas extends MY_Controller {
 
 	public function finalizado($id_venta ='')
 	{
+		$this->load->model('venta');
+
+		if (! $this->venta->exists($id_venta)) {
+			redirect('ventas');
+		}
+
+		$datos = array();
+		$datos['venta'] = $this->venta->get($id_venta)->row();
+		$this->template->write_view('content', 'venta_finalizado', $datos);
+		$this->template->write('title', 'Impresión');
 		$this->template->render();
 	}
 
