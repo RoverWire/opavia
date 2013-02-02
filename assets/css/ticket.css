@@ -1,0 +1,12 @@
+.contenedor {
+	width: 7.6cm;
+	margin: 0 auto;
+	padding: 0.2cm;
+	float: none;
+	position: relative;
+	border: 1px solid #000;
+}
+
+.encabezado {
+	text-align: center;
+}

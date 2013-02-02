@@ -136,7 +136,7 @@ class Ventas extends MY_Controller {
 			$datos = $this->input->post('datos');
 			$datos['fecha'] = date('Y-m-d');
 
-			if ($this->input->post('tipo_operacion')) {
+			if ($this->input->post('tipo_operacion') == 'venta') {
 				$datos['folio_venta'] = $this->venta->folio_siguiente();
 			}
 

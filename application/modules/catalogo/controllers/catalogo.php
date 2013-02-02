@@ -28,10 +28,10 @@ class Catalogo extends MY_Controller {
 
 	public function agregar()
 	{
-		$this->form_validation->set_rules('datos[nombre]', 'nombre', 'required|trim');
 		$this->form_validation->set_rules('datos[id_linea]', 'linea', 'required|trim');
 		$this->form_validation->set_rules('datos[id_proveedor]', 'proveedor', 'required|trim');
 		$this->form_validation->set_rules('datos[marca]', 'marca', 'required|trim');
+		$this->form_validation->set_rules('datos[modelo]', 'modelo', 'required|trim');
 		$this->form_validation->set_error_delimiters('<span class="help-inline">', '</span>');
 
 		if ($this->form_validation->run()) {
@@ -57,7 +57,7 @@ class Catalogo extends MY_Controller {
 			redirect('catalogo');
 		}
 
-		$this->form_validation->set_rules('datos[nombre]', 'nombre', 'required|trim');
+		$this->form_validation->set_rules('datos[modelo]', 'modelo', 'required|trim');
 		$this->form_validation->set_rules('datos[id_linea]', 'linea', 'required|trim');
 		$this->form_validation->set_rules('datos[id_proveedor]', 'proveedor', 'required|trim');
 		$this->form_validation->set_rules('datos[marca]', 'marca', 'required|trim');

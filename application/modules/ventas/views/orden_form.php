@@ -169,7 +169,7 @@
 							<input type="hidden" name="articulo[<?php echo $i ?>][unitario]" id="unitario<?php echo $i ?>" value="<?php echo $row->precio_venta ?>">
 							<input type="hidden" name="articulo[<?php echo $i ?>][id_articulo]" value="<?php echo $row->id ?>">
 						</td>
-						<td><?php echo $row->nombre.', '.$row->marca.', '.$row->modelo ?></td>
+						<td><?php echo $row->marca.', '.$row->modelo ?></td>
 						<td class="right">$<?php echo number_format($row->precio_venta, 2) ?></td>
 						<td class="center">
 							<div class="input-prepend">

@@ -13,15 +13,6 @@
 			</div>	
 		<?php endif ?>
 
-			<?php $error = form_error('datos[nombre]'); ?>
-			<div class="control-group<?php echo ($error != '') ? ' error' : ''; ?>">
-				<label for="nombre" class="control-label">Nombre</label>
-				<div class="controls">
-					<input type="text" name="datos[nombre]" id="nombre" value="<?php echo set_value('nombre', $nombre); ?>"> 
-					<?php echo $error; ?>
-				</div>		
-			</div>
-
 			<?php $error = form_error('datos[id_linea]'); ?>
 			<div class="control-group<?php echo ($error != '') ? ' error' : ''; ?>">
 				<label for="id_linea" class="control-label">Linea</label>
@@ -42,15 +33,6 @@
 						<option value="">Seleccione un proveedor</option>
 						<?php echo $id_proveedor; ?>
 					</select> 
-					<?php echo $error; ?>
-				</div>		
-			</div>
-
-			<?php $error = form_error('datos[clave]'); ?>
-			<div class="control-group<?php echo ($error != '') ? ' error' : ''; ?>">
-				<label for="clave" class="control-label">Clave</label>
-				<div class="controls">
-					<input type="text" name="datos[clave]" id="clave" value="<?php echo set_value('clave', $clave); ?>"> 
 					<?php echo $error; ?>
 				</div>		
 			</div>
@@ -112,7 +94,7 @@
 			<div class="control-group">
 				<div class="controls">
 					<button type="submit" class="btn">Guardar</button>
-					<a href="/catalogo/lineas" class="btn btn-inverse">Regresar</a>
+					<a href="/catalogo" class="btn btn-inverse">Regresar</a>
 				</div>
 			</div>
 
