@@ -23,13 +23,36 @@ class Tickets extends MY_Controller {
 		}
 
 		$this->load->model('clientes/cliente');
+		$this->load->model('abono');
 
 		$datos = array();
-		$datos['venta'] = $this->venta->get($id_venta)->row();
-		$datos['articulos'] = $this->venta_articulo->listado($id_venta);		
+		$datos['venta']     = $this->venta->get($id_venta)->row();
+		$datos['articulos'] = $this->venta_articulo->listado($id_venta);
+		$datos['cliente']   = $this->cliente->get($datos['venta']->id_cliente)->row();
+		$datos['pago'] 		= $this->abono->pagado_venta($id_venta);
 
 		$this->template->write_view('content', 'comprobante', $datos);
 		$this->template->write('title', 'Imprimir Comprobante');
+		$this->template->render();
+	}
+
+	public function orden($id_venta = '')
+	{
+		if (! $this->venta->exists($id_venta)) {
+			redirect('ventas');
+		}
+
+		$venta = $this->venta->get($id_venta)->row();
+
+		if ($venta->id_graduacion == 0) {
+			show_error('Esta venta no cuenta con algun trabajo de graduación');
+		}
+
+		$this->load->model('graduaciones/graduacion');
+		$datos = array('venta' => $venta);
+		$datos['graduacion'] = $this->graduacion->get($venta->id_graduacion)->row();
+		$this->template->write_view('content', 'orden_laboratorio', $datos);
+		$this->template->write('title', 'Imprimir Orden');
 		$this->template->render();
 	}
 

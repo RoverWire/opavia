@@ -31,9 +31,19 @@
 	<div class="contenedor">
 		<div class="encabezado">
 			<img src="/assets/img/logo_login.png" alt="" class="logo">
-			<p>[ Dirección de Optica Pavía ]</p>
 		</div>
-		<?php echo $content; ?>
+		
+		<div class="contenido">
+			<?php echo $content; ?>
+		</div>
+
+		<div class="encabezado pie">
+			<p>
+				Calle 59 No. 234-A por 8 y 6 Col. Esperanza. Teléfono 922.31.77 <br>
+				atencion_clientespavia@hotmail.com <br>
+				Horario: Lunes a Viernes 9:30 am a 1:30 pm y 4:30 pm a 8:00 pm. Sábados de 9:30 am a 2:00 pm
+			</p>
+		</div>
 	</div>	
 
 	<!-- here comes the javascript -->

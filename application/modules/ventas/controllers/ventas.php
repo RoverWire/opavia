@@ -154,7 +154,7 @@ class Ventas extends MY_Controller {
 					$this->venta_articulo->insert($articulo[$i]);
 				}
 
-				if ($this->input->post('tipo_operacion')) {
+				if ($this->input->post('tipo_operacion') == 'venta') {
 					$abono['fecha']    = date('Y-m-d');
 					$abono['abono']    = $this->input->post('abono');
 					$abono['id_venta'] = $id_venta;
@@ -163,6 +163,10 @@ class Ventas extends MY_Controller {
 					$this->abono->insert($abono);
 				}
 			}
+
+			$this->session->unset_userdata('venta_cliente');
+			$this->session->unset_userdata('venta_articulos');
+			$this->session->unset_userdata('venta_graduacion');
 
 			redirect('ventas/finalizado/'.$id_venta);
 		}

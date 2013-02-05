@@ -1,3 +1,14 @@
+body {
+	font-family: "Lucida Console";
+	font-size: 0.3cm;
+}
+
+.encabezado, .contenido, .pie {
+	display: block;
+	position: relative;
+	float: none;
+}
+
 .contenedor {
 	width: 7.6cm;
 	margin: 0 auto;
@@ -9,4 +20,50 @@
 
 .encabezado {
 	text-align: center;
+	line-height: 1em;
+}
+
+.center {
+	text-align: center;
+}
+
+.underline {
+	border-bottom: 1px solid #000;
+}
+
+.pie {
+	border-top: 1px solid #000;
+	margin-top: 0.5cm;
+	padding-top: 0.2cm;
+}
+
+.right {
+	text-align: right;
+}
+
+.bold {
+	font-weight: bold;
+}
+
+table {
+	width: 100%;
+}
+
+.datos_cliente {
+	margin-bottom: 0.5cm;
+}
+
+.datos_cliente td {
+	margin: 0;
+	padding: 0;
+	line-height: 1.1em;
+	vertical-align: top;
+}
+.articulos th, .articulos td {
+	margin: 0.2cm 0;
+	vertical-align: top;
+}
+
+.articulos {
+	margin-bottom: 0.5cm;
 }

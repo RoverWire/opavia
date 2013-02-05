@@ -11,6 +11,14 @@ class Abono extends MY_Model {
 		parent::__construct();
 	}
 
+	public function pagado_venta($id_venta)
+	{
+		$sql   = "SELECT SUM(abono) AS pagado FROM {$this->_table} WHERE id_venta = '$id_venta'";
+		$query = $this->db->query($sql);
+		$row   = $query->row();
+		return $row->pagado;
+	}
+
 }
 
 /* End of file abono.php */
