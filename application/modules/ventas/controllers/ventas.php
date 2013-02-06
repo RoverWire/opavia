@@ -288,6 +288,32 @@ class Ventas extends MY_Controller {
 		}
 	}
 
+	public function credito()
+	{
+		$this->load->model('venta');
+		$datos = array();
+		$datos['buscar'] = $this->input->post('buscar');
+		$datos['query']  = $this->venta->no_saldadas($this->input->post('buscar'));
+		$this->template->write_view('content', 'credito_listado', $datos);
+		$this->template->write('title', 'Ventas a Crédito');
+		$this->template->render();
+	}
+
+	public function detalle_credito($id_venta = '')
+	{
+		$this->load->model('venta');
+		if (! $this->venta->exists($id_venta)) {
+			redirect('ventas/credito');
+		}
+
+		$this->load->model('clientes/cliente');
+		$this->load->model('venta_articulo');
+		$this->load->model('graduaciones/graduacion');
+
+		$this->template->write('title', 'Detalle de Venta');
+		$this->template->render();
+	}
+
 }
 
 /* End of file ventas.php */

@@ -37,7 +37,7 @@
 	</tr>
 </table>
 
-<?php if ($venta->id_graduacion > 0): ?>
+<?php if ($venta->id_graduacion > 0 && $venta->folio_venta > 0): ?>
 <table class="articulos">
 	<tr>
 		<th class="underline" colspan="2">Cristales / Micas Graduadas</th>
@@ -112,7 +112,7 @@
 		?>
 		<tr>
 			<td><?php echo $row->cantidad ?></td>
-			<td><?php echo $row->modelo ?></td>
+			<td><?php echo $row->marca.' '.$row->modelo ?></td>
 			<td class="right"><?php echo number_format($row->total, 2) ?></td>
 		</tr>
 		<?php

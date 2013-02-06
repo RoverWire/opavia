@@ -49,8 +49,12 @@ class Tickets extends MY_Controller {
 		}
 
 		$this->load->model('graduaciones/graduacion');
-		$datos = array('venta' => $venta);
+		$this->load->model('clientes/cliente');
+
+		$datos               = array('venta' => $venta);
 		$datos['graduacion'] = $this->graduacion->get($venta->id_graduacion)->row();
+		$datos['cliente']    = $this->cliente->get($venta->id_cliente)->row();
+
 		$this->template->write_view('content', 'orden_laboratorio', $datos);
 		$this->template->write('title', 'Imprimir Orden');
 		$this->template->render();

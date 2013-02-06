@@ -22,6 +22,18 @@ class Venta extends MY_Model {
 		}
 	}
 
+	public function no_saldadas($buscar = '')
+	{
+		if (empty($buscar)) {
+			$sql = "SELECT v.*, c.nombre, c.apellidos FROM ventas AS v LEFT JOIN clientes AS c ON v.id_cliente = c.id
+			WHERE v.saldado = 0 AND v.folio_venta > 0 ORDER BY v.fecha DESC";
+		} else {
+			$sql = "SELECT v.*, c.nombre, c.apellidos FROM ventas AS v LEFT JOIN clientes AS c ON v.id_cliente = c.id 
+			WHERE v.saldado = 0 AND v.folio_venta > 0 AND (c.nombre LIKE '%$buscar%' OR c.apellidos LIKE '%$buscar%' OR v.fecha LIKE '%$buscar%') ORDER BY v.fecha DESC";
+		}
+		return $this->db->query($sql);
+	}
+
 }
 
 /* End of file venta.php */

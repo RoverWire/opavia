@@ -1,5 +1,32 @@
 <p class="center">Orden de Laboratorio</p>
 
+<p class="center">Folio de Venta: <?php echo $venta->folio_venta ?></p>
+
+<table class="datos_cliente">
+	<tr>
+		<th colspan="2" class="underline">Datos del Cliente</th>
+	</tr>
+	<tr>
+		<td colspan="2">&nbsp;</td>
+	</tr>
+	<tr>
+		<td class="bold" width="35%">Nombre</td>
+		<td><?php echo $cliente->nombre.' '.$cliente->apellidos ?></td>
+	</tr>
+	<tr>
+		<td  class="bold">Dirección</td>
+		<td><?php echo $cliente->direccion ?></td>
+	</tr>
+	<tr>
+		<td  class="bold">Teléfono</td>
+		<td><?php echo $cliente->telefono ?></td>
+	</tr>
+	<tr>
+		<td  class="bold">No. Cliente</td>
+		<td><?php echo $cliente->id ?></td>
+	</tr>
+</table>
+
 <table class="articulos">
 	<tr>
 		<th class="underline" colspan="2">Cristales / Micas</th>

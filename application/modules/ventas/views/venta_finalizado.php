@@ -7,10 +7,10 @@
 			comprobante correspondiente.</p>
 
 		<p class="center">
-			<a href="#" class="btn btn-small"><i class="icon-print"></i> Comprobante</a>
+			<a href="/ventas/tickets/comprobante/<?php echo $venta->id ?>" class="btn btn-small" target="blank"><i class="icon-print"></i> Comprobante</a>
 
 			<?php if ($venta->folio_venta > 0 && $venta->id_graduacion > 0): ?>
-				<a href="#" class="btn btn-small"><i class="icon-print"></i> Orden de Laboratorio</a>
+				<a href="/ventas/tickets/orden/<?php echo $venta->id ?>" class="btn btn-small" target="blank"><i class="icon-print"></i> Orden de Laboratorio</a>
 			<?php endif ?>
 		</p>
 		<hr>

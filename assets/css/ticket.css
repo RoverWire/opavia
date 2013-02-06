@@ -1,5 +1,6 @@
 body {
-	font-family: "Lucida Console";
+	/* font-family:  "Lucida Sans Unicode", "Lucida Grande", sans-serif; */
+	font-family: "Lucida Console", Monaco, monospace;
 	font-size: 0.3cm;
 }
 
