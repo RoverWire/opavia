@@ -45,7 +45,7 @@
 						<td><?php echo $row->fecha ?></td>
 						<td align="center">
 							<div class="btn-group">						
-								<a href="/ventas/detalles/<?php echo $row->id; ?>" class="btn btn-small" title="detalles"><i class="icon-search"></i></a>
+								<a href="/ventas/detalle_credito/<?php echo $row->id; ?>" class="btn btn-small" title="detalles"><i class="icon-search"></i></a>
 								<a href="/ventas/tickets/comprobante/<?php echo $row->id; ?>" class="btn btn-small" title="comprobante" target="blank"><i class="icon-print"></i></a>
 								<a href="#" class="btn btn-small" title="abonar"><i class="icon-money"></i></a>
 							</div>

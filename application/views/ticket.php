@@ -18,8 +18,7 @@
 	<!-- Favicon
 	<link rel="shortcut icon" href="img/favicon.ico">
 	-->
-
-	<link href="/assets/css/bootstrap.min.css" rel="stylesheet">
+	
 	<link href="/assets/css/ticket.css" rel="stylesheet">
 
 	<?php echo $_styles; ?>

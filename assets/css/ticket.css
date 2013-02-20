@@ -1,7 +1,5 @@
 body {
-	/* font-family:  "Lucida Sans Unicode", "Lucida Grande", sans-serif; */
-	font-family: "Lucida Console", Monaco, monospace;
-	font-size: 0.3cm;
+	font: 7pt/1 "Lucida Console", Monaco, monospace;
 }
 
 .encabezado, .contenido, .pie {
@@ -11,17 +9,13 @@ body {
 }
 
 .contenedor {
-	width: 7.6cm;
 	margin: 0 auto;
-	padding: 0.2cm;
 	float: none;
 	position: relative;
-	border: 1px solid #000;
 }
 
 .encabezado {
 	text-align: center;
-	line-height: 1em;
 }
 
 .center {
@@ -57,7 +51,6 @@ table {
 .datos_cliente td {
 	margin: 0;
 	padding: 0;
-	line-height: 1.1em;
 	vertical-align: top;
 }
 .articulos th, .articulos td {

@@ -309,8 +309,18 @@ class Ventas extends MY_Controller {
 		$this->load->model('clientes/cliente');
 		$this->load->model('venta_articulo');
 		$this->load->model('graduaciones/graduacion');
+		$this->load->model('abono');
+		
+		$venta     = $this->venta->get($id_venta)->row();
+		$articulos = $this->venta_articulo->listado($id_venta);
+		$datos     = array('venta' => $venta, 'articulos' => $articulos); 
+
+		if (!empty($venta->id_graduacion)) {
+			$datos['graduacion'] = $this->graduacion->get($venta->id_graduacion)->row();
+		}
 
 		$this->template->write('title', 'Detalle de Venta');
+		$this->template->write_view('content', 'credito_detalles', $datos);
 		$this->template->render();
 	}
 

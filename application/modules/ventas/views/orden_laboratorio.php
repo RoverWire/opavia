@@ -14,14 +14,6 @@
 		<td><?php echo $cliente->nombre.' '.$cliente->apellidos ?></td>
 	</tr>
 	<tr>
-		<td  class="bold">Dirección</td>
-		<td><?php echo $cliente->direccion ?></td>
-	</tr>
-	<tr>
-		<td  class="bold">Teléfono</td>
-		<td><?php echo $cliente->telefono ?></td>
-	</tr>
-	<tr>
 		<td  class="bold">No. Cliente</td>
 		<td><?php echo $cliente->id ?></td>
 	</tr>
