@@ -2,26 +2,40 @@
 
 <?php if (isset($graduacion)): ?>
 	<div class="widget widget-table">
-		<div class="widget-header center">
+		<div class="widget-header center bold">
 			Graduación
 		</div>
-		<table class="table">
-			<thead>
-				<tr>
-					<th colspan="4" class="center">Ojo Derecho</th>
-					<th colspan="4" class="center">Ojo Izquierdo</th>
-				</tr>
-				<tr>
-					<th class="center">sph</th>
-					<th class="center">cyl</th>
-					<th class="center">axis</th>
-					<th class="center">add</th>
-					<th class="center">sph</th>
-					<th class="center">cyl</th>
-					<th class="center">axis</th>
-					<th class="center">add</th>
-				</tr>
-			</thead>
-		</table>
+		<div class="widget-content">
+			<table class="table table-bordered">
+				<thead>
+					<tr>
+						<th colspan="4" class="center">Ojo Derecho</th>
+						<th colspan="4" class="center">Ojo Izquierdo</th>
+					</tr>
+					<tr>
+						<th class="center">sph</th>
+						<th class="center">cyl</th>
+						<th class="center">axis</th>
+						<th class="center">add</th>
+						<th class="center">sph</th>
+						<th class="center">cyl</th>
+						<th class="center">axis</th>
+						<th class="center">add</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td class="center"><?php echo $graduacion->od_sph ?></td>
+						<td class="center"><?php echo $graduacion->od_cyl ?></td>
+						<td class="center"><?php echo $graduacion->od_axis ?></td>
+						<td class="center"><?php echo $graduacion->od_add ?></td>
+						<td class="center"><?php echo $graduacion->oi_sph ?></td>
+						<td class="center"><?php echo $graduacion->oi_cyl ?></td>
+						<td class="center"><?php echo $graduacion->oi_axis ?></td>
+						<td class="center"><?php echo $graduacion->oi_add ?></td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
 	</div>
 <?php endif ?>
