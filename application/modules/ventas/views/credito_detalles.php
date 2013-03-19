@@ -38,4 +38,22 @@
 			</table>
 		</div>
 	</div>
+
+	<div class="widget widget-table">
+		<div class="widget-header center bold">
+			Orden de Laboratorio
+		</div>
+		<table class="table table-bordered">
+			<thead>
+				<tr>
+					<th>header</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>data</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
 <?php endif ?>
