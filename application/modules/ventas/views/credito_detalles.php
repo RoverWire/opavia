@@ -6,7 +6,7 @@
 			Graduación
 		</div>
 		<div class="widget-content">
-			<table class="table table-bordered">
+			<table class="table table-bordered table-striped">
 				<thead>
 					<tr>
 						<th colspan="4" class="center">Ojo Derecho</th>
@@ -43,17 +43,130 @@
 		<div class="widget-header center bold">
 			Orden de Laboratorio
 		</div>
-		<table class="table table-bordered">
+		<div class="widget-content">
+			<table class="table table-bordered table-striped">
+				<thead>
+					<tr>
+						<th>Material</th>
+						<th>Especificación</th>
+					</tr>
+				</thead>
+				<tbody>
+					<?php if (!empty($venta->lente)): ?>
+						<tr>
+							<td class="bold">Lente</td>
+							<td><?php echo $venta->lente; ?></td>
+						</tr>
+					<?php endif ?>
+
+					<?php if (!empty($venta->material)): ?>
+						<tr>
+							<td class="bold">Material</td>
+							<td><?php echo $venta->material; ?></td>
+						</tr>
+					<?php endif ?>
+
+					<?php if (!empty($venta->tipo)): ?>
+						<tr>
+							<td class="bold">Tipo</td>
+							<td><?php echo $venta->tipo; ?></td>
+						</tr>
+					<?php endif ?>
+
+					<?php if (!empty($venta->tinte)): ?>
+						<tr>
+							<td class="bold">Tinte</td>
+							<td><?php echo $venta->tinte; ?></td>
+						</tr>
+					<?php endif ?>
+
+					<?php if (!empty($venta->intensidad)): ?>
+						<tr>
+							<td class="bold">Intensidad</td>
+							<td><?php echo $venta->intensidad; ?></td>
+						</tr>
+					<?php endif ?>
+
+					<?php if (!empty($venta->aplicacion)): ?>
+						<tr>
+							<td class="bold">Aplicacion</td>
+							<td><?php echo $venta->aplicacion; ?></td>
+						</tr>
+					<?php endif ?>
+
+					<?php if (!empty($venta->tratamiento)): ?>
+						<tr>
+							<td class="bold">Tratamiento</td>
+							<td><?php echo $venta->tratamiento; ?></td>
+						</tr>
+					<?php endif ?>
+				</tbody>
+			</table>
+		</div>
+	</div>
+<?php endif ?>
+
+<div class="widget widget-table">
+	<div class="widget-header center bold">
+		Artículos
+	</div>
+	<div class="widget-content">
+		<table class="table table-bordered table-striped">
 			<thead>
-				<tr>
-					<th>header</th>
+				<tr class="underline">
+					<th width="15%">Cant.</th>
+					<th>Artículo</th>
+					<th width="15%">Importe</th>
 				</tr>
 			</thead>
 			<tbody>
+				<?php 
+					$total = 0;
+
+					foreach ($articulos->result() as $row){
+						$total += $row->total;
+				?>
 				<tr>
-					<td>data</td>
+					<td><?php echo $row->cantidad ?></td>
+					<td><?php echo $row->marca.' '.$row->modelo ?></td>
+					<td class="right"><?php echo number_format($row->total, 2) ?></td>
+				</tr>
+				<?php
+					}
+				?>
+				<tr>
+					<td class="right bold" colspan="2">Subtotal:</td>
+					<td class="right"><?php echo number_format($total, 2) ?></td>
 				</tr>
 			</tbody>
 		</table>
 	</div>
-<?php endif ?>
+</div>
+
+
+<div class="widget widget-table">
+	<div class="widget-header bold center">
+		Historial de Pagos Efectuados
+	</div>
+	<div class="widget-content">
+		<table class="table table-bordered table-striped">
+			<thead>
+				<tr>
+					<th class="center">Fecha</th>
+					<th class="center">Monto Abonado</th>
+					<th class="center">Saldo</th>
+				</tr>
+			</thead>
+			<tbody>
+			<?php foreach ($abonos->result() as $pago): ?>
+				<tr>
+					<td class="center"><?php echo $pago->fecha ?></td>
+					<td class="right">$ <?php echo number_format($pago->abono, 2) ?></td>
+					<td class="right">$ <?php echo number_format($pago->saldo, 2) ?></td>
+				</tr>
+
+			<?php endforeach ?>
+			</tbody>
+		</table>
+	</div>
+</div>

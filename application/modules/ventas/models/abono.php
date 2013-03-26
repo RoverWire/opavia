@@ -19,6 +19,12 @@ class Abono extends MY_Model {
 		return $row->pagado;
 	}
 
+	public function abonos_venta($id_venta)
+	{
+		$sql = "SELECT fecha, abono, saldo FROM {$this->_table} WHERE id_venta = '$id_venta'";
+		return $this->db->query($sql);
+	}
+
 }
 
 /* End of file abono.php */

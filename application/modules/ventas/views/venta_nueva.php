@@ -22,5 +22,12 @@
 				<a href="/ventas/cliente_nuevo" class="btn btn-success">Agregar Cliente</a>
 			</div>
 		</form>
+
+		<div class="row-fluid">
+			<div class="span6 center">
+				<div class="hidden-desktop">&nbsp; <br> </div>
+				<a href="/ventas/credito" class="btn btn-success">Consulta de Créditos</a>
+			</div>
+		</div>
 	</div>
 </div>

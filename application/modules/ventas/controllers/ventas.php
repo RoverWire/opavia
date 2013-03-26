@@ -313,7 +313,8 @@ class Ventas extends MY_Controller {
 		
 		$venta     = $this->venta->get($id_venta)->row();
 		$articulos = $this->venta_articulo->listado($id_venta);
-		$datos     = array('venta' => $venta, 'articulos' => $articulos); 
+		$abonos    = $this->abono->abonos_venta($id_venta);
+		$datos     = array('venta' => $venta, 'articulos' => $articulos, 'abonos' => $abonos); 
 
 		if (!empty($venta->id_graduacion)) {
 			$datos['graduacion'] = $this->graduacion->get($venta->id_graduacion)->row();
