@@ -25,6 +25,19 @@ class Abono extends MY_Model {
 		return $this->db->query($sql);
 	}
 
+	public function es_credito($id)
+	{
+		$sql   = "SELECT COUNT(id) AS id FROM ventas WHERE saldado = 0 AND id = '$id'";
+		$query = $this->db->query($sql)->row();
+		return ($query->id != 0) ? TRUE:FALSE;
+	}
+
+	public function ultimo_abono($id_venta)
+	{
+		$sql   = "SELECT saldo, id_venta, id FROM {$this->_table} WHERE id_venta = '$id_venta' ORDER BY id DESC LIMIT 1";
+		return $this->db->query($sql)->row_array();
+	}
+
 }
 
 /* End of file abono.php */

@@ -62,7 +62,6 @@
 			<aside class="span3">
 				<div class="sidebar-nav">
 					<ul id="main-nav" class="nav nav-tabs nav-stacked">
-						<li><a href="#"><i class="icon-dashboard"></i> Inicio</a></li>
 						<li><a href="/ventas"><i class="icon-shopping-cart"></i> Ventas</a></li>
 						<li><a href="/usuarios"><i class="icon-user"></i> Usuarios</a></li>					
 						<li><a href="/proveedores"><i class="icon-truck"></i> Proveedores</a></li>

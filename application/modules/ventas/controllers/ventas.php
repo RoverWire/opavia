@@ -325,6 +325,22 @@ class Ventas extends MY_Controller {
 		$this->template->render();
 	}
 
+	public function abonar($id_venta)
+	{
+		$this->load->model('venta');
+		$this->load->model('abono');
+
+		if (! $this->abono->es_credito($id_venta)) {
+			redirect('ventas/credito');
+		}
+
+		$datos = $this->abono->ultimo_abono($id_venta);
+
+		$this->template->write('title', 'Abonar a Crédito');
+		$this->template->write_view('content', 'abonar', $datos);
+		$this->template->render();
+	}
+
 }
 
 /* End of file ventas.php */

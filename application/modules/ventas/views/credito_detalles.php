@@ -157,6 +157,14 @@
 					<th class="center">Saldo</th>
 				</tr>
 			</thead>
+			<tfoot>
+				<tr>
+					<td colspan="3" class="center">
+						<a class="btn" href="/ventas/abonar/<?php echo $venta->id ?>">Realizar Abono</a>
+						<a class="btn" href="/ventas/credito">Regresar</a>
+					</td>
+				</tr>
+			</tfoot>
 			<tbody>
 			<?php foreach ($abonos->result() as $pago): ?>
 				<tr>
