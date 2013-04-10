@@ -299,7 +299,33 @@ class Ventas extends MY_Controller {
 		$this->template->render();
 	}
 
-	public function detalle_credito($id_venta = '')
+	public function detalle($id_venta = '', $modulo = '')
+	{
+		$this->load->model('venta');
+		if (! $this->venta->exists($id_venta)) {
+			redirect('ventas/credito');
+		}
+
+		$this->load->model('clientes/cliente');
+		$this->load->model('venta_articulo');
+		$this->load->model('graduaciones/graduacion');
+		$this->load->model('abono');
+		
+		$venta     = $this->venta->get($id_venta)->row();
+		$articulos = $this->venta_articulo->listado($id_venta);
+		$abonos    = $this->abono->abonos_venta($id_venta);
+		$datos     = array('venta' => $venta, 'articulos' => $articulos, 'abonos' => $abonos, 'id_cliente' => $venta->id_cliente); 
+
+		if (!empty($venta->id_graduacion)) {
+			$datos['graduacion'] = $this->graduacion->get($venta->id_graduacion)->row();
+		}
+
+		$this->template->write('title', 'Detalle de Venta');
+		$this->template->write_view('content', 'venta_detalles', $datos);
+		$this->template->render();
+	}
+
+	public function detalle_credito($id_venta = '', $modulo = '')
 	{
 		$this->load->model('venta');
 		if (! $this->venta->exists($id_venta)) {
@@ -335,6 +361,15 @@ class Ventas extends MY_Controller {
 		}
 
 		$datos = $this->abono->ultimo_abono($id_venta);
+		$this->form_validation->set_error_delimiters('<span class="help-inline">', '</span>');
+		$this->form_validation->set_rules('abono', 'Abono', 'required|greater_than[0]|less_than['.($datos['saldo'] + 0.01).']|numeric|trim');
+
+		if ($this->form_validation->run()) {
+			if ($this->abono->abonar($id_venta, $this->input->post('abono', TRUE))) {
+				$this->session->set_flashdata('msg_success', 'El abono ha sido registrado y agregado al historial de pagos.');
+				redirect('ventas/credito');
+			}
+		}
 
 		$this->template->write('title', 'Abonar a Crédito');
 		$this->template->write_view('content', 'abonar', $datos);

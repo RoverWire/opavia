@@ -96,8 +96,13 @@ class Clientes extends MY_Controller {
 			redirect('clientes');
 		}
 
+		$this->load->model('ventas/venta');
+
 		$datos            = array();
 		$datos['cliente'] = $this->cliente->get($id)->row();
+		$datos['credito'] = $this->venta->creditos_cliente($id);
+		$datos['compra']  = $this->venta->compras_cliente($id);
+		$datos['cotizacion']  = $this->venta->cotizaciones_cliente($id);
 		$this->template->write('title', 'Detalles de Cliente');
 		$this->template->write_view('content', 'details', $datos);
 		$this->template->render();

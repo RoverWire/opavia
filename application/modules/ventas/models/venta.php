@@ -34,6 +34,27 @@ class Venta extends MY_Model {
 		return $this->db->query($sql);
 	}
 
+	public function creditos_cliente($id_cliente)
+	{
+		$sql = "SELECT v.*, c.nombre, c.apellidos FROM ventas AS v LEFT JOIN clientes AS c ON v.id_cliente = c.id
+		WHERE v.saldado = 0 AND v.folio_venta > 0 AND c.id = '$id_cliente' ORDER BY v.fecha DESC";
+		return $this->db->query($sql);
+	}
+
+	public function compras_cliente($id_cliente)
+	{
+		$sql = "SELECT v.*, c.nombre, c.apellidos FROM ventas AS v LEFT JOIN clientes AS c ON v.id_cliente = c.id
+		WHERE v.saldado = 1 AND v.folio_venta > 0 AND c.id = '$id_cliente' ORDER BY v.fecha DESC";
+		return $this->db->query($sql);
+	}
+
+	public function cotizaciones_cliente($id_cliente)
+	{
+		$sql = "SELECT v.*, c.nombre, c.apellidos FROM ventas AS v LEFT JOIN clientes AS c ON v.id_cliente = c.id
+		WHERE v.saldado = 0 AND v.folio_venta = 0 AND c.id = '$id_cliente' ORDER BY v.fecha DESC";
+		return $this->db->query($sql);
+	}
+
 }
 
 /* End of file venta.php */

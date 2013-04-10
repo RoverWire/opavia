@@ -38,6 +38,27 @@ class Abono extends MY_Model {
 		return $this->db->query($sql)->row_array();
 	}
 
+	public function abonar($id_venta, $cantidad)
+	{
+		if (empty($cantidad) || empty($id_venta)) {
+			return FALSE;
+		}
+
+		$saldo = $this->ultimo_abono($id_venta);
+		$abono = array('fecha' => date('Y-m-d'), 'id_venta' => $id_venta, 'abono' => $cantidad);
+		$abono['saldo'] = $saldo['saldo'] - $cantidad;
+
+		if ($this->insert($abono)) {
+			if($abono['saldo'] == 0) {
+				$this->db->update('ventas', array('saldado' => '1'), "id = '$id_venta'");
+			}
+
+			return TRUE;
+		} else {
+			return FALSE;
+		}
+	}
+
 }
 
 /* End of file abono.php */
