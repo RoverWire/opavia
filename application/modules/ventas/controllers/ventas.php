@@ -129,7 +129,9 @@ class Ventas extends MY_Controller {
 
 		if ($this->input->post('tipo_operacion') == 'venta') {
 			$this->form_validation->set_rules('abono', 'efectivo', 'required|trim');
-			$this->form_validation->set_rules('datos[fecha_entrega]', 'fecha entrega', 'required|trim');
+			if ($id_graduacion) {
+				$this->form_validation->set_rules('datos[fecha_entrega]', 'fecha entrega', 'required|trim');
+			}
 		}
 
 		if ($this->form_validation->run()) {
@@ -146,7 +148,7 @@ class Ventas extends MY_Controller {
 
 			if ($this->venta->insert($datos)) {
 				$id_venta = $this->db->insert_id();
-				$limit = sizeof($this->input->post('articulos'));
+				$limit = sizeof($this->input->post('articulo'));
 				$articulo = $this->input->post('articulo');
 
 				for ($i=0; $i < $limit; $i++) { 
@@ -162,13 +164,14 @@ class Ventas extends MY_Controller {
 
 					$this->abono->insert($abono);
 				}
+
+				$this->session->unset_userdata('venta_cliente');
+				$this->session->unset_userdata('venta_articulos');
+				$this->session->unset_userdata('venta_graduacion');
+
+				redirect('ventas/finalizado/'.$id_venta);
 			}
-
-			$this->session->unset_userdata('venta_cliente');
-			$this->session->unset_userdata('venta_articulos');
-			$this->session->unset_userdata('venta_graduacion');
-
-			redirect('ventas/finalizado/'.$id_venta);
+			
 		}
 
 
