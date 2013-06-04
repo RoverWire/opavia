@@ -10,7 +10,7 @@ class Clientes extends MY_Controller {
 		$this->load->model('cliente');
 	}
 
-	public function index()
+	public function index($offset = 0)
 	{
 		if ($this->input->post('del')) {
 			$this->cliente->delete($this->input->post('del'));
@@ -23,9 +23,16 @@ class Clientes extends MY_Controller {
 		if ($this->input->post('buscar')) {
 			$datos['query'] = $this->cliente->busqueda( $this->input->post('buscar', TRUE) );
 		} else {
-			$datos['query'] = $this->cliente->get();
+			$datos['query'] = $this->cliente->limit(15, $offset)->get();
 		}
-
+		
+		$this->load->library('pagination');
+		$config['full_tag_open'] = '<div id="pagination" class="pagination pagination-centered"><ul>';
+		$config['base_url']   = '/clientes/index/';
+		$config['total_rows'] = $datos['query']->num_rows();
+		$config['per_page']   = 15;
+		$this->pagination->initialize($config);
+		
 		$this->template->write('title', 'Clientes');
 		$this->template->write_view('content', 'tabla', $datos);
 		$this->template->asset_js('consulta.js');

@@ -11,10 +11,11 @@ class Cliente extends MY_Model {
 		parent::__construct();		
 	}
 
-	public function busqueda($buscar)
+	public function busqueda($buscar, $offset = 0)
 	{
 		$this->db->like('nombre', $buscar, 'both');
 		$this->db->or_like('apellidos', $buscar, 'both');
+		$this->db->limit(15, $offset);
 		return $this->db->get($this->_table);
 	}
 

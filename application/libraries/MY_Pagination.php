@@ -66,8 +66,6 @@ class MY_Pagination extends CI_Pagination {
 			$this->initialize($params);
 		}
 
-		echo "inicia";
-
 		log_message('debug', "Pagination Class Initialized");
 	}
 

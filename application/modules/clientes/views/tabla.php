@@ -31,11 +31,14 @@
 					<tr>
 						<td colspan="6">
 							<button type="button" class="btn btn-danger" id="btn-delete"><i class="icon-remove"></i> Eliminar</button>
+
+							<?php echo $this->pagination->create_links(); ?>
 						</td>
 					</tr>
 				</tfoot>
 				<tbody>
 				<?php foreach ($query->result() as $row): ?>
+
 					<tr>
 						<td><input type="checkbox" name="del[]" value="<?php echo $row->id; ?>"></td>
 						<td><?php echo $row->nombre.' '.$row->apellidos; ?> </td>
@@ -53,11 +56,13 @@
 				<?php endforeach ?>
 
 				<?php if ($query->num_rows() == 0): ?>
+
 					<tr>
 						<td colspan="5" class="center">No se encontraron resultados</td>
 					</tr>
 					
 				<?php endif ?>
+
 				</tbody>
 			</table>
 		</div>
