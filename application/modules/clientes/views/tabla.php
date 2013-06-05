@@ -9,10 +9,17 @@
 <?php endif ?>
 
 <div class="widget widget-table">
-	<form action="">
+	<form action="" method="post">
 		<div class="widget-header">
-			<div class="pull-right">
-				<a href="/clientes/agregar" class="btn btn-small btn-success"><i class="icon-plus"></i> Agregar</a> &nbsp;
+			<div class="form-search force-top">
+				<div class="input-append">
+					<input type="text" name="buscar" value="<?php echo $buscar ?>" class="span2 search-query">
+					<button type="submit" class="btn"><i class="icon-search"></i></button>
+				</div>
+
+				<div class="pull-right">
+					<a href="/clientes/agregar" class="btn btn-small btn-success"><i class="icon-plus"></i> Agregar</a> &nbsp;
+				</div>
 			</div>
 		</div>
 
@@ -29,10 +36,13 @@
 				</thead>
 				<tfoot>
 					<tr>
-						<td colspan="6">
-							<button type="button" class="btn btn-danger" id="btn-delete"><i class="icon-remove"></i> Eliminar</button>
-
-							<?php echo $this->pagination->create_links(); ?>
+						<td colspan="6" class="row-fluid">
+							<div class="span2">
+								<button type="button" class="btn btn-danger" id="btn-delete"><i class="icon-remove"></i> Eliminar</button>
+							</div>
+							<div class="span10">
+								<?php echo $this->pagination->create_links(); ?>								
+							</div>							
 						</td>
 					</tr>
 				</tfoot>

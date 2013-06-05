@@ -263,6 +263,19 @@ class MY_Model extends CI_Model {
 		return $this->total_results;
 	}
 
+	/**
+	 * Count all rows of a query using MySQL SQL_CALC_FOUND_ROWS
+	 * 
+	 * @return int rows
+	 */
+	
+	public function found_rows()
+	{
+		$query = $this->db->query('SELECT FOUND_ROWS() AS total');
+		$data  = $query->row();
+		return $data->total;
+	}
+
 	/* --------------------------------------------------------------
 	 * UTILITIES
 	 * ------------------------------------------------------------ */

@@ -18,19 +18,15 @@ class Clientes extends MY_Controller {
 			redirect('clientes');
 		}
 
-		$datos  = array();
-
-		if ($this->input->post('buscar')) {
-			$datos['query'] = $this->cliente->busqueda( $this->input->post('buscar', TRUE) );
-		} else {
-			$datos['query'] = $this->cliente->limit(15, $offset)->get();
-		}
-		
 		$this->load->library('pagination');
-		$config['full_tag_open'] = '<div id="pagination" class="pagination pagination-centered"><ul>';
-		$config['base_url']   = '/clientes/index/';
-		$config['total_rows'] = $datos['query']->num_rows();
-		$config['per_page']   = 15;
+		$datos  = array();
+		$datos['query']  = $this->cliente->busqueda( $this->input->post('buscar', TRUE), $offset, 15 );
+		$datos['buscar'] = $this->input->post('buscar');
+
+		$config['total_rows']    = $this->cliente->found_rows();
+		$config['full_tag_open'] = '<div class="pagination pagination-right"><ul>';
+		$config['base_url']      = '/clientes/index/';
+		$config['per_page']      = 15;
 		$this->pagination->initialize($config);
 		
 		$this->template->write('title', 'Clientes');
