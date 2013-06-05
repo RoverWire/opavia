@@ -29,13 +29,17 @@
 						<th width="10%">Opciones</th>
 					</tr>
 				</thead>
+
+				<?php if (!empty($paginacion)): ?>				
 				<tfoot>
 					<tr>
 						<td colspan="5" class="center">
-							
+							<?php echo $paginacion; ?>
 						</td>
 					</tr>
 				</tfoot>
+				<?php endif ?>
+				
 				<tbody>
 				<?php foreach ($query->result() as $row): ?>
 					<tr>

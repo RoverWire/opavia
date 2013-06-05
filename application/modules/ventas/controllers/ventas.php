@@ -293,10 +293,32 @@ class Ventas extends MY_Controller {
 
 	public function credito()
 	{
+		$default = array('buscar', 'offset');
+		$param   = $this->uri->uri_to_assoc(3, $default);
+		$param['buscar'] = ($this->input->post('buscar') != '') ? $this->input->post('buscar', TRUE):$param['buscar'];
+		$num_results = 15;
+
+		$this->load->library('pagination');
 		$this->load->model('venta');
 		$datos = array();
-		$datos['buscar'] = $this->input->post('buscar');
-		$datos['query']  = $this->venta->no_saldadas($this->input->post('buscar'));
+		$datos['buscar'] = $param['buscar'];
+		$datos['query']  = $this->venta->no_saldadas($param['buscar'], $param['offset'], $num_results);
+		$datos['form_action'] = '/ventas/credito';
+
+		if (empty($param['buscar'])) {
+			unset($param['buscar']);
+			$config['uri_segment'] = 4;
+		} else {
+			$config['uri_segment'] = 6;
+		}
+
+		$param['offset'] = '';
+		$config['total_rows']    = $this->venta->found_rows();
+		$config['base_url']      = '/ventas/credito/'.$this->uri->assoc_to_uri($param);
+		$config['per_page']      = $num_results;
+		$this->pagination->initialize($config);
+		$datos['paginacion']     = $this->pagination->create_links();
+
 		$this->template->write_view('content', 'credito_listado', $datos);
 		$this->template->write('title', 'Ventas a Crédito');
 		$this->template->render();

@@ -26,7 +26,7 @@ class Cliente extends MY_Model {
 		$this->db->order_by('nombre, apellidos', 'ASC');
 		$limit  = (is_numeric($limit)) ? $limit:15;
 
-		if ($limit == 0) {
+		if ($limit != 0) {
 			$offset = (is_numeric($offset)) ? $offset:0;
 			$this->db->limit($limit, $offset);
 		}

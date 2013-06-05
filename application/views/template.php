@@ -62,6 +62,7 @@
 				<div class="sidebar-nav">
 					<ul id="main-nav" class="nav nav-tabs nav-stacked">
 						<li><a href="/ventas"><i class="icon-shopping-cart"></i> Ventas</a></li>
+						<li><a href="/ventas/credito"><i class="icon-credit-card"></i> Créditos</a></li>
 						<li><a href="/usuarios"><i class="icon-user"></i> Usuarios</a></li>					
 						<li><a href="/proveedores"><i class="icon-truck"></i> Proveedores</a></li>
 						<li><a href="/clientes"><i class="icon-briefcase"></i> Clientes</a></li>

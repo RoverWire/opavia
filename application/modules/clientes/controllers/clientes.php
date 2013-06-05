@@ -20,12 +20,13 @@ class Clientes extends MY_Controller {
 
 		$default = array('buscar', 'offset');
 		$param   = $this->uri->uri_to_assoc(3, $default);
+		$num_results = 15;
 
 		$param['buscar'] = ($this->input->post('buscar') != '') ? $this->input->post('buscar', TRUE):$param['buscar'];
 
 		$this->load->library('pagination');
 		$datos  = array();
-		$datos['query']  = $this->cliente->busqueda( $param['buscar'], $param['offset'], 15 );
+		$datos['query']  = $this->cliente->busqueda( $param['buscar'], $param['offset'], $num_results );
 		$datos['buscar'] = $param['buscar'];
 		$datos['form_action'] = '/clientes';
 
@@ -40,7 +41,7 @@ class Clientes extends MY_Controller {
 		$config['total_rows']    = $this->cliente->found_rows();
 		$config['full_tag_open'] = '<div class="pagination pagination-right"><ul>';
 		$config['base_url']      = '/clientes/index/'.$this->uri->assoc_to_uri($param);
-		$config['per_page']      = 15;
+		$config['per_page']      = $num_results;
 		$this->pagination->initialize($config);
 		
 		$this->template->write('title', 'Clientes');

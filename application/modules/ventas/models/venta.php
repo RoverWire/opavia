@@ -22,16 +22,27 @@ class Venta extends MY_Model {
 		}
 	}
 
-	public function no_saldadas($buscar = '')
+	public function no_saldadas($buscar = '', $offset = 0, $limit = 15)
 	{
-		if (empty($buscar)) {
-			$sql = "SELECT v.*, c.nombre, c.apellidos FROM ventas AS v LEFT JOIN clientes AS c ON v.id_cliente = c.id
-			WHERE v.saldado = 0 AND v.folio_venta > 0 ORDER BY v.fecha DESC";
-		} else {
-			$sql = "SELECT v.*, c.nombre, c.apellidos FROM ventas AS v LEFT JOIN clientes AS c ON v.id_cliente = c.id 
-			WHERE v.saldado = 0 AND v.folio_venta > 0 AND (c.nombre LIKE '%$buscar%' OR c.apellidos LIKE '%$buscar%' OR v.fecha LIKE '%$buscar%') ORDER BY v.fecha DESC";
+		$this->db->select('SQL_CALC_FOUND_ROWS v.*, c.nombre, c.apellidos', FALSE)
+				 ->from('ventas AS v')
+				 ->join('clientes AS c', 'v.id_cliente = c.id', 'left')
+				 ->where('v.saldado', '0')
+				 ->where('v.folio_venta >', '0');
+
+		if (!empty($buscar)) {
+			$this->db->where("(c.nombre LIKE '%$buscar%' OR c.apellidos LIKE '%$buscar%' OR v.fecha LIKE '%$buscar%')");
 		}
-		return $this->db->query($sql);
+
+		$this->db->order_by('v.fecha', 'DESC');
+		$limit  = (is_numeric($limit)) ? $limit:15;
+
+		if ($limit != 0) {
+			$offset = (is_numeric($offset)) ? $offset:0;
+			$this->db->limit($limit, $offset);
+		}
+
+		return $this->db->get();
 	}
 
 	public function creditos_cliente($id_cliente)
