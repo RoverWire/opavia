@@ -17,7 +17,7 @@ class Perfil extends MY_Controller {
 		$this->form_validation->set_error_delimiters('<span class="help-inline">', '</span>');
 
 		if ($this->form_validation->run()) {
-			if ($this->usuario->update($this->input->post('datos')) !== FALSE) {
+			if ($this->usuario->update($this->input->post('datos'), $this->session->userdata('id')) !== FALSE) {
 				$datos = $this->input->post('datos');
 				$this->session->set_userdata($datos);
 				$this->session->set_flashdata('msg_success', 'Los datos del perfil han sido actualizados.');
@@ -44,7 +44,7 @@ class Perfil extends MY_Controller {
 		$this->form_validation->set_error_delimiters('<span class="help-inline">', '</span>');
 
 		if ($this->form_validation->run()) {
-			if ($this->usuario->update($this->input->post('datos')) !== FALSE) {
+			if ($this->usuario->update($this->input->post('datos'), $this->session->userdata('id')) !== FALSE) {
 				$this->session->set_flashdata('msg_success', 'La contraseña ha sido cambiada.');
 				redirect('usuarios/perfil/password');
 			}

@@ -319,7 +319,7 @@ hr {
 }
 
 .force-top {
-	padding: 4px 10px;
+	padding: 4px 10px 0px 10px;
 }
 
 .force-top input, .force-top .btn {
@@ -432,6 +432,14 @@ hr {
 
 .right {
 	text-align: right !important;
+}
+
+.btn-right {
+	float: right;
+}
+
+.widget-header .btn-right {
+	margin-top: 4px;
 }
 
 @media (max-width: 979px) {

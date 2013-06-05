@@ -9,17 +9,14 @@
 <?php endif ?>
 
 <div class="widget widget-table">
-	<form action="" method="post">
+	<form action="<?php echo (isset($form_action)) ? $form_action:''?>" method="post">
 		<div class="widget-header">
 			<div class="form-search force-top">
 				<div class="input-append">
 					<input type="text" name="buscar" value="<?php echo $buscar ?>" class="span2 search-query">
 					<button type="submit" class="btn"><i class="icon-search"></i></button>
 				</div>
-
-				<div class="pull-right">
-					<a href="/clientes/agregar" class="btn btn-small btn-success"><i class="icon-plus"></i> Agregar</a> &nbsp;
-				</div>
+				<a href="/clientes/agregar" class="btn btn-small btn-success btn-right"><i class="icon-plus"></i> Agregar</a>
 			</div>
 		</div>
 

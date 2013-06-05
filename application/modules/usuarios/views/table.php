@@ -9,7 +9,7 @@
 <?php endif ?>
 
 <div class="widget widget-table">
-	<form action="" id="consulta" method="post">
+	<form action="<?php echo (isset($form_action)) ? $form_action:''?>" id="consulta" method="post">
 		<div class="widget-header">			
 			<div class="pull-right">
 				<a href="/usuarios/agregar" class="btn btn-small btn-success"><i class="icon-plus"></i> Agregar</a> &nbsp;

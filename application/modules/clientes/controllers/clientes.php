@@ -10,7 +10,7 @@ class Clientes extends MY_Controller {
 		$this->load->model('cliente');
 	}
 
-	public function index($offset = 0)
+	public function index()
 	{
 		if ($this->input->post('del')) {
 			$this->cliente->delete($this->input->post('del'));
@@ -18,14 +18,28 @@ class Clientes extends MY_Controller {
 			redirect('clientes');
 		}
 
+		$default = array('buscar', 'offset');
+		$param   = $this->uri->uri_to_assoc(3, $default);
+
+		$param['buscar'] = ($this->input->post('buscar') != '') ? $this->input->post('buscar', TRUE):$param['buscar'];
+
 		$this->load->library('pagination');
 		$datos  = array();
-		$datos['query']  = $this->cliente->busqueda( $this->input->post('buscar', TRUE), $offset, 15 );
-		$datos['buscar'] = $this->input->post('buscar');
+		$datos['query']  = $this->cliente->busqueda( $param['buscar'], $param['offset'], 15 );
+		$datos['buscar'] = $param['buscar'];
+		$datos['form_action'] = '/clientes';
 
+		if (empty($param['buscar'])) {
+			unset($param['buscar']);
+			$config['uri_segment'] = 4;
+		} else {
+			$config['uri_segment'] = 6;
+		}
+
+		$param['offset'] = '';
 		$config['total_rows']    = $this->cliente->found_rows();
 		$config['full_tag_open'] = '<div class="pagination pagination-right"><ul>';
-		$config['base_url']      = '/clientes/index/';
+		$config['base_url']      = '/clientes/index/'.$this->uri->assoc_to_uri($param);
 		$config['per_page']      = 15;
 		$this->pagination->initialize($config);
 		
