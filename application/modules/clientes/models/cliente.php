@@ -11,7 +11,7 @@ class Cliente extends MY_Model {
 		parent::__construct();		
 	}
 
-	public function busqueda($buscar = '', $offset = 0, $limit = 15)
+	public function busqueda($buscar = '', $offset = 0, $limit = 15, $activos = FALSE)
 	{
 		$this->db->select('SQL_CALC_FOUND_ROWS id, nombre, apellidos, email, telefono, status', FALSE);
 
@@ -19,11 +19,18 @@ class Cliente extends MY_Model {
 			$this->db->like("CONCAT(nombre, ' ', apellidos)", $buscar, 'both', FALSE);
 		}
 
-		$limit  = (is_numeric($limit)) ? $limit:15;
-		$offset = (is_numeric($offset)) ? $offset:0;
+		if ($activos) {
+			$this->db->where('status', '1');
+		}
 
 		$this->db->order_by('nombre, apellidos', 'ASC');
-		$this->db->limit($limit, $offset);
+		$limit  = (is_numeric($limit)) ? $limit:15;
+
+		if ($limit == 0) {
+			$offset = (is_numeric($offset)) ? $offset:0;
+			$this->db->limit($limit, $offset);
+		}
+
 		return $this->db->get($this->_table);
 	}
 
