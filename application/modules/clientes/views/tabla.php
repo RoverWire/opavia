@@ -10,14 +10,17 @@
 
 <div class="widget widget-table">
 	<form action="<?php echo (isset($form_action)) ? $form_action:''?>" method="post">
-		<div class="widget-header">
-			<div class="form-search force-top">
-				<div class="input-append">
-					<input type="text" name="buscar" value="<?php echo $buscar ?>" class="span2 search-query">
-					<button type="submit" class="btn"><i class="icon-search"></i></button>
-				</div>
-				<a href="/clientes/agregar" class="btn btn-small btn-success btn-right"><i class="icon-plus"></i> Agregar</a>
+		<div class="widget-header form-search force-top">			
+			<div class="input-append">
+				<input type="text" name="buscar" value="<?php echo $buscar ?>" class="span2 search-query">
+				<button type="submit" class="btn"><i class="icon-search"></i></button>
 			</div>
+
+			<?php if (!empty($buscar)): ?>
+				<a href="/clientes" class="btn btn-small"><i class="icon-undo"></i> Limpiar Filtro</a>
+			<?php endif ?>
+
+			<a href="/clientes/agregar" class="btn btn-small btn-success btn-right"><i class="icon-plus"></i> Agregar</a>
 		</div>
 
 		<div class="widget-content">

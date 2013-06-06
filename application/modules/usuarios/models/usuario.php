@@ -86,6 +86,25 @@ class Usuario extends MY_Model {
 		return $this->db->where('usuario', $usuario)->get($this->_table, 1);
 	}
 
+	public function busqueda($buscar = '', $offset = 0, $limit = 15)
+	{
+		$this->db->select('SQL_CALC_FOUND_ROWS id, nombre, apellidos, usuario, tipo, activo', FALSE);
+
+		if (!empty($buscar)) {
+			$this->db->like("CONCAT(nombre, ' ', apellidos)", $buscar, 'both', FALSE);
+		}
+
+		$this->db->order_by('nombre, apellidos', 'ASC');
+		$limit  = (is_numeric($limit)) ? $limit:15;
+
+		if ($limit != 0) {
+			$offset = (is_numeric($offset)) ? $offset:0;
+			$this->db->limit($limit, $offset);
+		}
+
+		return $this->db->get($this->_table);
+	}
+
 }
 
 /* End of file usuario.php */

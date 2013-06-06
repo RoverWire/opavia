@@ -9,11 +9,19 @@
 <?php endif ?>
 
 <div class="widget widget-table">
-	<form action="">
-		<div class="widget-header">
-			<div class="pull-right">
-				<a href="/proveedores/agregar" class="btn btn-small btn-success"><i class="icon-plus"></i> Agregar</a> &nbsp;
+	<form action="<?php echo (isset($form_action)) ? $form_action:''?>" method="post">
+		<div class="widget-header form-search force-top">
+			<div class="input-append">
+				<input type="text" name="buscar" value="<?php echo $buscar ?>" class="span2 search-query">
+				<button type="submit" class="btn"><i class="icon-search"></i></button>
 			</div>
+
+			<?php if (!empty($buscar)): ?>
+				<a href="/proveedores" class="btn btn-small"><i class="icon-undo"></i> Limpiar Filtro</a>
+			<?php endif ?>
+			
+			<a href="/proveedores/agregar" class="btn btn-small btn-success btn-right"><i class="icon-plus"></i> Agregar</a> &nbsp;
+			
 		</div>
 
 		<div class="widget-content">
@@ -29,8 +37,13 @@
 				</thead>
 				<tfoot>
 					<tr>
-						<td colspan="6">
-							<button type="button" class="btn btn-danger" id="btn-delete"><i class="icon-remove"></i> Eliminar</button>
+						<td colspan="6" class="row-fluid">
+							<div class="span2">
+								<button type="button" class="btn btn-danger" id="btn-delete"><i class="icon-remove"></i> Eliminar</button>
+							</div>
+							<div class="span10">
+								<?php echo $this->pagination->create_links(); ?>								
+							</div>
 						</td>
 					</tr>
 				</tfoot>

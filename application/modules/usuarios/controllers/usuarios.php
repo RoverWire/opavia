@@ -16,9 +16,33 @@ class Usuarios extends MY_Controller {
 			redirect('usuarios');
 		}
 
-		$datos = array();
-		$datos['query'] = $this->usuario->get();
+		$default = array('buscar', 'offset');
+		$param   = $this->uri->uri_to_assoc(3, $default);
+		$num_results = 15;
+
+		$param['buscar'] = ($this->input->post('buscar') != '') ? $this->input->post('buscar', TRUE):$param['buscar'];
+
+		$this->load->library('pagination');
+		$datos  = array();
 		$datos['msg_success'] = $this->session->flashdata('msg_success');
+		$datos['query']  = $this->usuario->busqueda( $param['buscar'], $param['offset'], $num_results );
+		$datos['buscar'] = $param['buscar'];
+		$datos['form_action'] = '/usuarios';
+
+		if (empty($param['buscar'])) {
+			unset($param['buscar']);
+			$config['uri_segment'] = 4;
+		} else {
+			$config['uri_segment'] = 6;
+		}
+
+		$param['offset'] = '';
+		$config['total_rows']    = $this->usuario->found_rows();
+		$config['full_tag_open'] = '<div class="pagination pagination-right"><ul>';
+		$config['base_url']      = '/usuarios/index/'.$this->uri->assoc_to_uri($param);
+		$config['per_page']      = $num_results;
+		$this->pagination->initialize($config);
+
 		$this->template->write('title', 'Usuarios');
 		$this->template->write_view('content', 'table', $datos);
 		$this->template->asset_js('consulta.js');

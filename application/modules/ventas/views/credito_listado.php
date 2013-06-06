@@ -9,13 +9,17 @@
 
 <div class="widget widget-table">
 	<form action="" method="post" class="form-search">
-		<div class="widget-header">
-			<div class="form-search force-top">
-				<div class="input-append">
-					<input type="text" name="buscar" value="<?php echo $buscar ?>" class="span2 search-query">
-					<button type="submit" class="btn"><i class="icon-search"></i></button>
-				</div>
+		<div class="widget-header form-search force-top">
+			
+			<div class="input-append">
+				<input type="text" name="buscar" value="<?php echo $buscar ?>" class="span2 search-query">
+				<button type="submit" class="btn"><i class="icon-search"></i></button>
 			</div>
+
+			<?php if (!empty($buscar)): ?>
+				<a href="/ventas/credito" class="btn btn-small"><i class="icon-undo"></i> Limpiar Filtro</a>
+			<?php endif ?>
+		
 		</div>
 
 		<div class="widget-content">

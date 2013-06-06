@@ -26,6 +26,7 @@ class Clientes extends MY_Controller {
 
 		$this->load->library('pagination');
 		$datos  = array();
+		$datos['msg_success'] = $this->session->flashdata('msg_success');
 		$datos['query']  = $this->cliente->busqueda( $param['buscar'], $param['offset'], $num_results );
 		$datos['buscar'] = $param['buscar'];
 		$datos['form_action'] = '/clientes';

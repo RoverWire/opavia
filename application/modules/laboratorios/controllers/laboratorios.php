@@ -16,8 +16,7 @@ class Laboratorios extends MY_Controller {
 			redirect('laboratorios');
 		}
 
-		$datos = array();
-		$datos['query'] = $this->laboratorio->get();
+		
 		$this->template->write('title', 'Laboratorios');
 		$this->template->write_view('content', 'tabla', $datos);
 		$this->template->asset_js('consulta.js');
