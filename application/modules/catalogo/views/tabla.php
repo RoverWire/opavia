@@ -9,12 +9,10 @@
 <?php endif ?>
 
 <div class="widget widget-table">
-	<form action="" id="consulta" method="post">
-		<div class="widget-header">			
-			<div class="pull-right">
-				<a href="/catalogo/lineas" class="btn btn-small"><u class="icon-list"></u> Lineas de Artículos</a>
-				<a href="/catalogo/agregar" class="btn btn-small btn-success"><i class="icon-plus"></i> Agregar</a> &nbsp;
-			</div>
+	<form action="<?php echo (isset($form_action)) ? $form_action:''?>" id="consulta" method="post">
+		<div class="widget-header form-search force-top">
+			<a href="/catalogo/agregar" class="btn btn-small btn-success btn-right"><i class="icon-plus"></i> Agregar</a>
+			<a href="/catalogo/lineas" class="btn btn-small btn-right"><u class="icon-list"></u> Lineas de Artículos</a>
 		</div>
 		<div class="widget-content">
 			<table class="table table-striped table-bordered">
