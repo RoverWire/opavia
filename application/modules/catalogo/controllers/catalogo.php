@@ -15,11 +15,36 @@ class Catalogo extends MY_Controller {
 		if ($this->input->post('del')) {
 			$this->articulo->delete($this->input->post('del'));
 			$this->session->set_flashdata('msg_success', 'Los artículos han sido eliminados de manera permanente.');
-			redirect('clientes');
+			redirect('catalogo');
 		}
 
-		$datos = array();
-		$datos['query'] = $this->articulo->get();
+		$default = array('buscar', 'offset');
+		$param   = $this->uri->uri_to_assoc(3, $default);
+		$num_results = 15;
+
+		$param['buscar'] = ($this->input->post('buscar') != '') ? $this->input->post('buscar', TRUE):$param['buscar'];
+
+		$this->load->library('pagination');
+		$datos  = array();
+		$datos['msg_success'] = $this->session->flashdata('msg_success');
+		$datos['query']  = $this->articulo->busqueda( $param['buscar'], '', $param['offset'], $num_results );
+		$datos['buscar'] = $param['buscar'];
+		$datos['form_action'] = '/catalogo';
+
+		if (empty($param['buscar'])) {
+			unset($param['buscar']);
+			$config['uri_segment'] = 4;
+		} else {
+			$config['uri_segment'] = 6;
+		}
+
+		$param['offset'] = '';
+		$config['total_rows']    = $this->articulo->found_rows();
+		$config['full_tag_open'] = '<div class="pagination pagination-right"><ul>';
+		$config['base_url']      = '/catalogo/index/'.$this->uri->assoc_to_uri($param);
+		$config['per_page']      = $num_results;
+		$this->pagination->initialize($config);
+
 		$this->template->write('title', 'Artículos');
 		$this->template->write_view('content', 'tabla', $datos);
 		$this->template->asset_js('consulta.js');

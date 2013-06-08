@@ -11,7 +11,17 @@
 <div class="widget widget-table">
 	<form action="<?php echo (isset($form_action)) ? $form_action:''?>" id="consulta" method="post">
 		<div class="widget-header form-search force-top">
+			<div class="input-append">
+				<input type="text" name="buscar" value="<?php echo $buscar ?>" class="span2 search-query">				
+				<button type="submit" class="btn"><i class="icon-search"></i></button>
+			</div>
+
+			<?php if (!empty($buscar)): ?>
+				<a href="/catalogo" class="btn btn-small"><i class="icon-undo"></i> Limpiar Filtro</a>
+			<?php endif ?>
+
 			<a href="/catalogo/agregar" class="btn btn-small btn-success btn-right"><i class="icon-plus"></i> Agregar</a>
+			<span class="btn-right">&nbsp;</span>
 			<a href="/catalogo/lineas" class="btn btn-small btn-right"><u class="icon-list"></u> Lineas de Artículos</a>
 		</div>
 		<div class="widget-content">
