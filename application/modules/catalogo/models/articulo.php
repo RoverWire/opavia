@@ -40,7 +40,7 @@ class Articulo extends MY_Model {
 			$this->db->limit($limit, $offset);
 		}
 
-		return $this->db->get($this->_table);
+		return $this->db->get();
 	}
 
 }

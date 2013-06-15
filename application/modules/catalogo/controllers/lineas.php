@@ -16,8 +16,33 @@ class Lineas extends MY_Controller {
 			redirect('clientes');
 		}
 
-		$datos = array();
-		$datos['query'] = $this->linea->get();
+		$default = array('buscar', 'offset');
+		$param   = $this->uri->uri_to_assoc(4, $default);
+		$num_results = 15;
+
+		$param['buscar'] = ($this->input->post('buscar') != '') ? $this->input->post('buscar', TRUE):$param['buscar'];
+
+		$this->load->library('pagination');
+		$datos  = array();
+		$datos['msg_success'] = $this->session->flashdata('msg_success');
+		$datos['query']  = $this->linea->busqueda( $param['buscar'], $param['offset'], $num_results );
+		$datos['buscar'] = $param['buscar'];
+		$datos['form_action'] = '/catalogo/lineas';
+
+		if (empty($param['buscar'])) {
+			unset($param['buscar']);
+			$config['uri_segment'] = 5;
+		} else {
+			$config['uri_segment'] = 7;
+		}
+
+		$param['offset'] = '';
+		$config['total_rows']    = $this->linea->found_rows();
+		$config['full_tag_open'] = '<div class="pagination pagination-right"><ul>';
+		$config['base_url']      = '/catalogo/lineas/index/'.$this->uri->assoc_to_uri($param);
+		$config['per_page']      = $num_results;
+		$this->pagination->initialize($config);
+		
 		$this->template->write('title', 'Lineas de Artículos');
 		$this->template->write_view('content', 'lineas_tabla', $datos);
 		$this->template->asset_js('consulta.js');
