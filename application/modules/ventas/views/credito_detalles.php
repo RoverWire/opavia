@@ -41,7 +41,7 @@
 
 	<div class="widget widget-table">
 		<div class="widget-header center bold">
-			Orden de Laboratorio
+			Orden de Laboratorio: <?php echo $laboratorio->nombre ?>
 		</div>
 		<div class="widget-content">
 			<table class="table table-bordered table-striped">
