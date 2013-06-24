@@ -2,6 +2,8 @@
 
 <p class="center">Folio de Venta: <?php echo $venta->folio_venta ?></p>
 
+<p class="center">Fecha de Expedición: <?php echo $venta->fecha ?></p>
+
 <table class="datos_cliente">
 	<tr>
 		<th colspan="2" class="underline">Datos del Cliente</th>
