@@ -322,10 +322,13 @@ hr {
 	padding: 4px 10px 0px 10px;
 }
 
-.force-top input, .force-top .btn {
+.force-top input, .force-top select, .force-top .btn {
 	vertical-align: top;
 }
 
+.force-top-10 input, .force-top-10 select, .force-top-10 .btn {
+	margin-top: 5px;
+}
 
 
 /*------------------------------------------------------------------

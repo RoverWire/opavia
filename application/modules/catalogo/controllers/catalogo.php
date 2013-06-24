@@ -18,24 +18,33 @@ class Catalogo extends MY_Controller {
 			redirect('catalogo');
 		}
 
-		$default = array('buscar', 'offset');
+		$default = array('buscar', 'linea', 'offset');
 		$param   = $this->uri->uri_to_assoc(3, $default);
 		$num_results = 15;
 
 		$param['buscar'] = ($this->input->post('buscar') != '') ? $this->input->post('buscar', TRUE):$param['buscar'];
+		$param['linea']  = ($this->input->post('linea') != '') ? $this->input->post('linea', TRUE):$param['linea'];
 
 		$this->load->library('pagination');
 		$datos  = array();
 		$datos['msg_success'] = $this->session->flashdata('msg_success');
-		$datos['query']  = $this->articulo->busqueda( $param['buscar'], '', $param['offset'], $num_results );
-		$datos['buscar'] = $param['buscar'];
+		$datos['query']       = $this->articulo->busqueda( $param['buscar'], $param['linea'], $param['offset'], $num_results );
+		$datos['buscar']      = $param['buscar'];
 		$datos['form_action'] = '/catalogo';
+		$datos['linea']       = $param['linea'];
 
-		if (empty($param['buscar'])) {
+		if (empty($param['buscar']) && empty($param['linea'])) {
 			unset($param['buscar']);
+			unset($param['linea']);
 			$config['uri_segment'] = 4;
-		} else {
+		} else if (!empty($param['buscar']) && empty($param['linea'])) {
+			unset($param['linea']);
 			$config['uri_segment'] = 6;
+		} else if (empty($param['buscar']) && !empty($param['linea'])) {
+			unset($param['buscar']);
+			$config['uri_segment'] = 6;
+		} else {
+			$config['uri_segment'] = 8;
 		}
 
 		$param['offset'] = '';
@@ -44,6 +53,8 @@ class Catalogo extends MY_Controller {
 		$config['base_url']      = '/catalogo/index/'.$this->uri->assoc_to_uri($param);
 		$config['per_page']      = $num_results;
 		$this->pagination->initialize($config);
+
+		//$datos['linea'] = $this->linea->dropdown_opt('id', 'nombre', $param['linea']);
 
 		$this->template->write('title', 'Artículos');
 		$this->template->write_view('content', 'tabla', $datos);

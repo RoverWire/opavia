@@ -4,15 +4,18 @@
 
 <div class="widget widget-table">
 	<form action="" id="consulta" method="post">
-		<div class="widget-header">
-			<div class="form-search force-top">
-				<div class="input-append">
-					<input type="text" name="buscar" value="<?php echo $buscar ?>" class="span2 search-query">
-					<button type="submit" class="btn"><i class="icon-search"></i></button>
-				</div>
-				&nbsp;
+		<div class="widget-header force-top force-top-10">			
+			<select name="linea">
+				<option value="">Todas</option>
+				<?php echo $lineas ?>
+
+			</select>
+			<input type="text" name="buscar" value="<?php echo $buscar ?>" class="span2">
+			<button type="submit" class="btn"><i class="icon-search"></i> Buscar</button>
+
+			<div class="right btn-right">
 				Articulos Seleccionados: <strong id="counter"><?php echo $contador ?></strong>
-			</div> 
+			</div>		
 		</div>
 		<div class="widget-content">
 			<table class="table table-striped table-bordered">
@@ -64,7 +67,7 @@
 					} else {
 				?>
 					<tr>
-						<td class="center" colspan="5">Porporcione un criterio de búsqueda</td>
+						<td class="center" colspan="5">Proporcione un criterio de búsqueda</td>
 					</tr>
 				<?php 
 					}

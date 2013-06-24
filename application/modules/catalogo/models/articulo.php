@@ -19,9 +19,7 @@ class Articulo extends MY_Model {
 
 
 		if (!empty($buscar)) {
-			$this->db->like('p.marca', $buscar, 'both')
-					 ->or_like('p.modelo', $buscar, 'both')
-					 ->or_like('p.color', $buscar, 'both');
+			$this->db->where("(p.marca LIKE '%$buscar%' OR p.modelo LIKE '%$buscar%' OR p.color LIKE '%$buscar%')", '', FALSE);
 		}
 
 		if ($activos) {

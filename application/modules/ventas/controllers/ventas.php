@@ -232,10 +232,15 @@ class Ventas extends MY_Controller {
 		}
 
 		$this->load->model('catalogo/articulo');
+		$this->load->model('catalogo/linea');
 		
 		$datos   = array();
-		$buscar  = $this->input->post('buscar', TRUE); 
+		$buscar  = $this->input->post('buscar', TRUE);
+		$linea   = $this->input->post('linea', TRUE);
+
 		$datos['buscar']    = $this->input->post('buscar');
+		$datos['linea']     = $this->input->post('linea');
+		$datos['lineas']    = $this->linea->dropdown_opt('id', 'nombre', $linea);
 		$datos['articulos'] = $this->session->userdata('venta_articulos');
 		$datos['idcliente'] = $idcliente;
 
@@ -245,14 +250,14 @@ class Ventas extends MY_Controller {
 			$datos['contador'] = 0;
 		}
 
-		if (!empty($buscar)) {
-			$arreglo = array('marca' => $buscar, 'modelo' => $buscar);
-			$datos['query']  = $this->articulo->or_like($arreglo)->get();
+		if (!empty($buscar) || !empty($linea)) {
+			$datos['query']  = $this->articulo->busqueda( $buscar, $linea, '', 0, TRUE );
 		}
 
 		$this->template->write('title', 'Artículos');
 		$this->template->write_view('content', 'articulos_listado', $datos);
 		$this->template->asset_js('consulta.js');
+		$this->template->asset_js('bootstrap-datepicker.js');
 		$this->template->asset_js('ventas.js');
 		$this->template->render();
 	}

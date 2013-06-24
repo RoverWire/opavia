@@ -2,10 +2,10 @@
 
 <div class="widget widget-table">
 	<form action="">
-		<div class="widget-header">
-			<div class="pull-right">
-				<a href="/ventas/agregar_graduacion/<?php echo $id_cliente ?>" class="btn btn-small btn-success"><i class="icon-plus"></i> Agregar</a> &nbsp;
-			</div>
+		<div class="widget-header force-top">
+			
+			<a href="/ventas/agregar_graduacion/<?php echo $id_cliente ?>" class="btn btn-small btn-success btn-right"><i class="icon-plus"></i> Agregar</a>
+
 		</div>
 
 		<div class="widget-content">

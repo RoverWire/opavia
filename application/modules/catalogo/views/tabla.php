@@ -11,12 +11,9 @@
 <div class="widget widget-table">
 	<form action="<?php echo (isset($form_action)) ? $form_action:''?>" id="consulta" method="post">
 		<div class="widget-header form-search force-top">
-			<div class="input-append">
-				<input type="text" name="buscar" value="<?php echo $buscar ?>" class="span2 search-query">				
-				<button type="submit" class="btn"><i class="icon-search"></i></button>
-			</div>
+			<button class="btn btn-small" type="button" data-toggle="modal" data-target="#search-modal"><i class="icon-search"></i> Búsqueda</button>
 
-			<?php if (!empty($buscar)): ?>
+			<?php if (!empty($buscar) || !empty($linea)): ?>
 				<a href="/catalogo" class="btn btn-small"><i class="icon-undo"></i> Limpiar Filtro</a>
 			<?php endif ?>
 
@@ -37,8 +34,13 @@
 				</thead>
 				<tfoot>
 					<tr>
-						<td colspan="6">
-							<button type="button" class="btn btn-danger" id="btn-delete"><i class="icon-remove"></i> Eliminar</button>
+						<td colspan="5" class="row-fluid">
+							<div class="span2">
+								<button type="button" class="btn btn-danger" id="btn-delete"><i class="icon-remove"></i> Eliminar</button>
+							</div>
+							<div class="span10">
+								<?php echo $this->pagination->create_links(); ?>								
+							</div>							
 						</td>
 					</tr>
 				</tfoot>
@@ -67,6 +69,34 @@
 				<?php endif ?>
 				</tbody>
 			</table>
+		</div>
+
+		<!-- modal window -->
+		<div id="search-modal" class="modal hide fade">
+			<div class="modal-header">
+				<h4>Realizar Búsqueda</h4>
+			</div>
+			<div class="modal-body form-horizontal">
+				<div class="control-group">
+					<label for="buscar" class="control-label">Buscar</label>
+					<div class="controls">
+						<input type="text" name="buscar" value="<?php echo $buscar ?>">
+					</div>
+				</div>
+				<div class="control-group">
+					<label class="control-label" for="linea">En linea</label>
+					<div class="controls">
+						<select name="linea" id="linea">
+							<option value="">Todas</option>
+							<?php echo $this->linea->dropdown_opt('id', 'nombre', $linea); ?>
+						</select>
+					</div>
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button class="btn" data-dismiss="modal" aria-hidden="true">Cerrar</button>
+				<button class="btn btn-primary">Buscar</button>
+			</div>
 		</div>
 	</form>
 </div>
