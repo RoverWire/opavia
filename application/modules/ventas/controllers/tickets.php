@@ -50,8 +50,10 @@ class Tickets extends MY_Controller {
 
 		$this->load->model('graduaciones/graduacion');
 		$this->load->model('clientes/cliente');
+		$this->load->model('laboratorios/laboratorio');
 
 		$datos               = array('venta' => $venta);
+		$datos['lab']        = $this->laboratorio->get($venta->id_laboratorio)->row();
 		$datos['graduacion'] = $this->graduacion->get($venta->id_graduacion)->row();
 		$datos['cliente']    = $this->cliente->get($venta->id_cliente)->row();
 

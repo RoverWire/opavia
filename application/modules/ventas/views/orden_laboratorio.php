@@ -1,4 +1,4 @@
-<p class="center">Orden de Laboratorio</p>
+<p class="center">Orden de Laboratorio: <?php echo $lab->nombre ?></p>
 
 <p class="center">Folio de Venta: <?php echo $venta->folio_venta ?></p>
 
