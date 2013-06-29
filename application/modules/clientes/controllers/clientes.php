@@ -58,6 +58,10 @@ class Clientes extends MY_Controller {
 		$this->form_validation->set_rules('datos[apellidos]', 'apellidos', 'required|trim');
 		$this->form_validation->set_error_delimiters('<span class="help-inline">', '</span>');
 
+		if (!empty($_POST['datos']['email'])) {
+			$this->form_validation->set_rules('datos[email]', 'e-mail', 'valid_email|trim');
+		}
+
 		if ($this->form_validation->run()) {
 			if ($this->cliente->insert( $this->input->post('datos') )) {
 				$this->session->set_flashdata('msg_success', 'El cliente ha sido agregado.');
@@ -83,6 +87,10 @@ class Clientes extends MY_Controller {
 		$this->form_validation->set_rules('datos[nombre]', 'nombre', 'required|trim');
 		$this->form_validation->set_rules('datos[apellidos]', 'apellidos', 'required|trim');
 		$this->form_validation->set_error_delimiters('<span class="help-inline">', '</span>');
+
+		if (!empty($_POST['datos']['email'])) {
+			$this->form_validation->set_rules('datos[email]', 'e-mail', 'valid_email|trim');
+		}
 
 		if ($this->form_validation->run()) {
 			if ($this->cliente->update($this->input->post('datos'), $id) !== FALSE) {

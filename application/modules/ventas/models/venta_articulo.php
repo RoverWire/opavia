@@ -20,6 +20,16 @@ class Venta_Articulo extends MY_Model {
 		return $this->db->query($sql);
 	}
 
+	public function descontar($id, $cantidad)
+	{
+		if (!empty($id) && !empty($cantidad)) {
+			$sql = "UPDATE catalogo_articulos SET existencia = (existencia - $cantidad) WHERE id = '$id';";
+			return $this->db->simple_query($sql);
+		} else {
+			return FALSE;
+		}
+	}
+
 }
 
 /* End of file venta_articulo.php */

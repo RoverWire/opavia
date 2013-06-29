@@ -30,6 +30,7 @@
 				<tfoot>
 					<tr>
 						<td colspan="6" class="center">
+							<?php echo $this->pagination->create_links(); ?>
 							<a href="/ventas" class="btn btn-inverse btn-small">Regresar a Ventas</a>
 						</td>
 					</tr>

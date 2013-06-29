@@ -22,9 +22,31 @@ class Ventas extends MY_Controller {
 
 	public function clientes()
 	{
-		$datos = array();
-		$datos['buscar'] = $this->input->post('buscar', TRUE);
-		$datos['query']  = $this->cliente->busqueda($datos['buscar']);
+		$default = array('buscar', 'offset');
+		$param   = $this->uri->uri_to_assoc(3, $default);
+		$num_results = 15;
+
+		$param['buscar'] = ($this->input->post('buscar') != '') ? $this->input->post('buscar', TRUE):$param['buscar'];
+
+		$this->load->library('pagination');
+		$datos  = array();
+		$datos['query']  = $this->cliente->busqueda( $param['buscar'], $param['offset'], $num_results );
+		$datos['buscar'] = $param['buscar'];
+		$datos['form_action'] = '/ventas/clientes';
+
+		if (empty($param['buscar'])) {
+			unset($param['buscar']);
+			$config['uri_segment'] = 4;
+		} else {
+			$config['uri_segment'] = 6;
+		}
+
+		$param['offset'] = '';
+		$config['total_rows']    = $this->cliente->found_rows();
+		$config['full_tag_open'] = '<div class="pagination pagination-right"><ul>';
+		$config['base_url']      = '/ventas/clientes/'.$this->uri->assoc_to_uri($param);
+		$config['per_page']      = $num_results;
+		$this->pagination->initialize($config);
 
 		$this->template->write_view('content', 'cliente_listado', $datos);
 		$this->template->write('title', 'Listado de Clientes');
@@ -38,7 +60,10 @@ class Ventas extends MY_Controller {
 		$this->form_validation->set_rules('datos[nombre]', 'nombre', 'required|trim');
 		$this->form_validation->set_rules('datos[apellidos]', 'apellidos', 'required|trim');
 		$this->form_validation->set_rules('datos[telefono]', 'telefono', 'required|trim');
-		$this->form_validation->set_rules('datos[email]', 'e-mail', 'required|valid_email|trim');
+		
+		if (!empty($_POST['datos']['email'])) {
+			$this->form_validation->set_rules('datos[email]', 'e-mail', 'valid_email|trim');
+		}
 
 		$datos = $this->cliente->prepare_data( $this->input->post('datos') );
 
@@ -82,6 +107,8 @@ class Ventas extends MY_Controller {
 			redirect('ventas');
 		}
 
+		$reset = array('od_sph' => 0, 'od_cyl' => 0, 'od_axis' => 0, 'od_add' => 0, 'oi_sph' => 0, 'oi_cyl' => 0, 'oi_axis' => 0, 'oi_add' => 0);
+
 		$this->form_validation->set_rules('datos[od_sph]', 'esfera', 'required|trim');
 		$this->form_validation->set_rules('datos[od_cyl]', 'cilindro', 'required|trim');
 		$this->form_validation->set_rules('datos[od_axis]', 'eje', 'required|trim');
@@ -101,7 +128,7 @@ class Ventas extends MY_Controller {
 			}
 		}
 
-		$datos                = $this->graduacion->prepare_data( $this->input->post('datos') );
+		$datos                = $this->graduacion->prepare_data( $this->input->post('datos'), $reset );
 		$datos['idcliente']   = $id_cliente;
 		$datos['titulo_form'] = 'Agregar Graduación';
 
@@ -154,6 +181,10 @@ class Ventas extends MY_Controller {
 				for ($i=0; $i < $limit; $i++) { 
 					$articulo[$i]['id_venta'] = $id_venta;
 					$this->venta_articulo->insert($articulo[$i]);
+
+					if ($this->input->post('tipo_operacion') == 'venta') {
+						$this->venta_articulo->descontar($articulo[$i]['id_articulo'], $articulo[$i]['cantidad']);
+					}					
 				}
 
 				if ($this->input->post('tipo_operacion') == 'venta') {
