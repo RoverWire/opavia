@@ -9,6 +9,7 @@ class Reportes extends MY_Controller {
 
 	public function index()
 	{
+		$this->template->write_view('content', 'reportes');
 		$this->template->write('title', 'Reportes de Ventas');
 		$this->template->render();
 	}

@@ -9,6 +9,10 @@ input, select, option, textarea {
 	font: 13px/1.7em 'OpenSansRegular', arial, sans-serif;
 }
 
+.input-date {
+	width:140px;
+}
+
 label {
 	font: 13px/1.7em 'OpenSansSemiBold', arial, sans-serif;
 }
