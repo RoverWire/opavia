@@ -20,6 +20,8 @@
 			<a href="/catalogo/agregar" class="btn btn-small btn-success btn-right"><i class="icon-plus"></i> Agregar</a>
 			<span class="btn-right">&nbsp;</span>
 			<a href="/catalogo/lineas" class="btn btn-small btn-right"><u class="icon-list"></u> Lineas de Artículos</a>
+			<span class="btn-right">&nbsp;</span>
+			<a href="/ventas/reportes/almacen" class="btn btn-small btn-right"><u class="icon-download"></u> Descargar Listado</a>
 		</div>
 		<div class="widget-content">
 			<table class="table table-striped table-bordered">
