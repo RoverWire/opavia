@@ -9,6 +9,7 @@
 			<th>Fecha</th>
 			<th>Tipo</th>
 			<th>Abono</th>
+			<th>Saldo</th>
 		</tr>
 	</thead>
 	<tbody>
@@ -18,6 +19,7 @@
 			<td align="center"><?php echo $row->fecha ?></td>
 			<td align="right"><?php echo ($row->abono == $row->total) ? 'Contado':'Abono' ?></td>
 			<td><?php echo $row->abono ?></td>
+			<td><?php echo $row->saldo ?></td>
 		</tr>
 		<?php endforeach ?>
 	</tbody>

@@ -1,4 +1,4 @@
-<h1 class="page-title"><i class="icon-eye-open"></i> Reporte de Abonos y Pagos</h1>
+<h1 class="page-title"><i class="icon-eye-open"></i> Reporte de Ventas</h1>
 
 <div class="widget">
 	<div class="widget-content">
@@ -13,20 +13,15 @@
 					<input type="date" size="10" class="input-medium" name="final" id="final" value="<?php echo set_value('final') ?>" required>
 				</div>
 				<div class="span4">
-					<label for="filtro" class="control-label">Mostrar</label>
-					<select name="filtro" id="filtro" class="input-medium">
-						<option value="0">Todos</option>
-						<option value="1">Abonos Parciales</option>
-						<option value="2">Ventas Contado</option>
-					</select>
+					<label for="descarga" class="checkbox">
+						<input type="checkbox" name="descarga" id="descarga" value="1">
+						Descargar como excel.
+					</label>
 				</div>
 				<br class="clear"> &nbsp;
 				<div class="row-fluid">
 					<div class="span8">
-						<label for="descarga" class="checkbox">
-							<input type="checkbox" name="descarga" id="descarga" value="1">
-							Descargar el reporte como archivo excel.
-						</label>
+						
 					</div>
 					<div class="span4">
 						<button class="btn btn-success"><i class="icon-search"></i> Filtrar Reporte</button>
@@ -49,9 +44,9 @@
 				<tr>
 					<th>Cliente</th>
 					<th>Fecha</th>
-					<th>Tipo</th>
-					<th>Abono</th>
-					<th>Saldo</th>
+					<th>Cantidad</th>
+					<th>Articulo</th>
+					<th>Importe</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -59,9 +54,9 @@
 				<tr>
 					<td><?php echo $row->nombre.' '.$row->apellidos ?></td>
 					<td><?php echo $row->fecha ?></td>
-					<td><?php echo ($row->abono == $row->total) ? 'Contado':'Abono' ?></td>
-					<td><?php echo '$ '.number_format($row->abono, 2) ?></td>
-					<td><?php echo '$ '.number_format($row->saldo, 2) ?></td>
+					<td><?php echo $row->cantidad ?></td>
+					<td><?php echo $row->marca.' '.$row->modelo ?></td>
+					<td><?php echo '$ '.number_format($row->total, 2) ?></td>
 				</tr>
 				<?php endforeach ?>
 			</tbody>
