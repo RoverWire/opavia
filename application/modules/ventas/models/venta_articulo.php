@@ -30,6 +30,16 @@ class Venta_Articulo extends MY_Model {
 		}
 	}
 
+	public function reporte($fecha_inicial, $fecha_final)
+	{
+		$this->db->select('ventas.fecha AS fecha_venta, ventas.total, abonos.id_venta, abonos.abono, abonos.saldo, abonos.fecha, clientes.nombre, clientes.apellidos');
+		$this->db->from('ventas');
+		$this->db->join('ventas_articulos', 'ventas.id = ventas_articulos.id_venta', 'inner');
+		$this->db->join('abonos', 'ventas.id = abonos.id_venta', 'inner');
+		$this->db->join('clientes', 'clientes.id = ventas.id_cliente', 'left');
+		$this->db->where("abonos.fecha BETWEEN '$fecha_incio' AND '$fecha_fin'", '', FALSE);
+	}
+
 }
 
 /* End of file venta_articulo.php */
